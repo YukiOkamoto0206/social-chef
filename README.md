@@ -44,6 +44,7 @@ Small commit makes us
 - Easy to check pull request
 - Easy to revert
 - Less bugs
+
 more details [here](https://betterprogramming.pub/why-you-should-write-small-git-commits-c9a042737aa6)
 
 #### Two types of prefix
