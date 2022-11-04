@@ -10,13 +10,13 @@ DO NOT commit your environmental variables like api key or database password. If
 
 ### Install libraries from package.json
 ```
-$ npm i
+npm i
 ```
 
 ### Run the project
 ```
 // Encourage you to use this, because this command is hot-reload with nodemon.
-$ npm run dev
+npm run dev
 ```
 
 ## Work on the project
@@ -24,12 +24,12 @@ $ npm run dev
 ### Create a new branch
 
 ```
-$ git checkout -b <new branch name>
+git checkout -b <new branch name>
 ```
 
 ### Add your code changes to the git staging area
 ```
-$ git add 〇〇.js 〇〇.ejs
+git add 〇〇.js 〇〇.ejs
 ```
 
 ### Commit your changes
@@ -45,12 +45,12 @@ more details [here](https://betterprogramming.pub/why-you-should-write-small-git
 - **feat** : new feature
 - **fix** : bug fix
 ```
-$ git commit -m "feat: fetch the recipes api"
+git commit -m "feat: fetch the recipes api"
 ```
 
 ### Push your changes
 ```
-$ git push origin <branch name>
+git push origin <branch name>
 ```
 
 ## Pull Request
