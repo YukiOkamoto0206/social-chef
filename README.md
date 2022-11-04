@@ -5,13 +5,18 @@ Highly Recommended to use VSCode because format settings are written in .vscode/
 
 ## Getting started with Express app
 
-### Create a .env file.
-DO NOT commit your environmental variables like api key or database password. If you do not know .env file, let me know or check .sample.env file.
+### Clone the project
+```
+git clone https://github.com/YukiOkamoto0206/social-chef.git
+```
 
 ### Install libraries from package.json
 ```
 npm i
 ```
+
+### Create a .env file.
+DO NOT commit your environmental variables like api key or database password. If you do not know .env file, let me know or check .sample.env file.
 
 ### Run the project
 ```
