@@ -1,4 +1,5 @@
 # The Social Chef
+[Design Brief](https://docs.google.com/document/d/1XavWZOlGL7jBrrykMamLBcF5EM_BlJkfgyi-KXZl2t8/edit)
 
 ## IDE
 Highly Recommended to use VSCode because format settings are written in .vscode/settings.json.
