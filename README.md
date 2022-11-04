@@ -23,6 +23,7 @@ DO NOT commit your environmental variables like api key or database password. If
 // Encourage you to use this, because this command is hot-reload with nodemon.
 npm run dev
 ```
+Go http://localhost:3000/
 
 ## Work on the project
 
