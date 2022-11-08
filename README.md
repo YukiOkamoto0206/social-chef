@@ -65,7 +65,7 @@ git push origin <branch name>
 After you push your changes to your branch, create Pull Request in the GitHub. If you don't know how to use it, check [here](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/creating-a-pull-request?tool=webui).
 
 ## Check Pull Request
-If somebody create a pull request or fix it, send message through slack. The others will check it.
+If somebody create a pull request or fix it, GitHub automatically send the message through the slack. The others can check it.
 
 ## How to change the branch from yours to others
 Do not change the branch before commiting or stashing your current branch.
