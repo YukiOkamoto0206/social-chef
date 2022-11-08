@@ -1,0 +1,65 @@
+body {
+  margin:0 0 0 37%;
+  padding: 0;
+  background-color:  #f9efe5;
+}
+
+label {
+  margin-bottom: 4px;
+}
+
+.left-side {
+  position: absolute;
+  width: 37%;
+  height: 100%;
+  left: 0px;
+  top: 0px;
+  background: url(/img/pasta.webp);
+  background-size:     cover;                      /* <------ */
+  background-repeat:   no-repeat;
+  text-align: center;
+  color: white;
+  font-family: 'Montserrat', sans-serif;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  
+}
+
+.left-side {
+  position: absolute;
+  width: 37%;
+  height: 100%;
+  left: 0px;
+  top: 0px;
+  background: url(/img/pasta.webp);
+  background-size:     cover;                      /* <------ */
+  background-repeat:   no-repeat;
+  text-align: center;
+  color: white;
+  font-family: 'Montserrat', sans-serif;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  
+}
+
+.left-side h1{
+  font-size: 64px;
+}
+
+.left-side h2{
+  margin-top: 80px;
+  font-size: 32px;
+}
+
+.f-container p {
+  padding-bottom: 5rem;
+}
+
+.input-fields {
+  display: flex;
+  flex-direction: column;
+  margin-top: 2rem;
+}
+
+a{
+  color:rgb(235, 213, 160);
+  text-decoration-color: rgb(235, 213, 160);
+}
