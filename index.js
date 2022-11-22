@@ -9,13 +9,31 @@ const fetch = require('node-fetch');
 const dotenv = require('dotenv');
 dotenv.config();
 
+// [login page] (POST /login)
 app.get('/', (req, res) => {
   res.render('login');
 });
 
+// [create/sign in] (POST /create)
 app.get('/create', (req, res) => {
   res.render('create');
 });
+
+// [home page] (GET /home)
+
+// [logout] (GET /login)
+
+// [settings] (GET /userInfo)
+
+// [add/update settings] (POST /userInfo)
+
+// [new recipe] has input form (GET /recipe)
+
+// [add recipes] in your own (use form from scrach without api) (POST /recipe)
+
+// [save recipes] from api (GET /savedRecipes)
+
+// [delete recipes] (GET /recipe)
 
 app.get('/test', (req, res) => {
   res.render('test');
