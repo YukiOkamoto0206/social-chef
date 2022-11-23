@@ -1,0 +1,70 @@
+body {
+  margin: 0 0 0 200px;
+  padding: 0;
+  background-color:  #FFFBF8
+}
+
+nav {
+  position: absolute;
+  left: 0;
+  top: 0;
+  background-color: #FFF4EA;
+  height: 100%;
+  width: 200px;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 0.0625em 0.0625em, rgba(0, 0, 0, 0.25) 0px 0.125em 0.5em, rgba(255, 255, 255, 0.1) 0px 0px 0px 1px inset;
+}
+
+.slip{
+  display: flex;
+  flex-direction: row;
+  column-gap: 2.2rem;
+  max-height: 10.5rem;
+  max-width: 50rem;
+  margin: 4rem auto;
+  border-radius: 5px;
+  position: relative;
+  background-color: white;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.slip-img img{
+  height: 100%;
+  object-fit: contain;
+  border-radius: 5px 0 0 5px;
+}
+
+.slip-img {
+  width: 30%;
+
+}
+
+.slip-body{
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 70px 70px;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  column-gap: 1rem;
+}
+
+.slip-body p {
+  margin: 0;
+  font-size: 15px;
+}
+
+.slip-util {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  margin-right: 2rem;
+  margin-bottom: 1rem;
+}
+
+.slip-util button {
+  width: 80px;
+  height: 30px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
