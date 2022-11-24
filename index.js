@@ -12,6 +12,10 @@ app.get('/create', (req, res) => {
   res.render('create');
 });
 
+app.get('/home', (req, res) => {
+  res.render('home');
+});
+
 app.get('/test', (req, res) => {
   res.render('test');
 });

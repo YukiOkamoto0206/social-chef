@@ -7,8 +7,11 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Heebo&family=Nunito:wght@200&display=swap" rel="stylesheet">
+<script src="https://kit.fontawesome.com/20718ccc33.js" crossorigin="anonymous" defer></script>
 <!-- CSS UTILIZED BY THIS PAGE -->
-<link rel="stylesheet" href="/css/general.css" type="text/css" />  
+<link rel="stylesheet" href="/css/general.css" type="text/css" />
+<link rel="stylesheet" href="/css/home.css" type="text/css" />  
+
 
 </head>
 
@@ -16,36 +19,46 @@
 
   <nav>
     <section class="nav-header">
-      <h1>Welcome <br> User</h1>
+      <h1>Welcome <br> User!</h1>
     </section>
 
     <section class="nav-body">
-      <div class="body-row active"><a href="">Home</a></div>
-      <div class="body-row"><a href="">Saved</a></div>
-      <div class="body-row"><a href="">Info</a></div>
+      <div class="body-row active"> <i class="fa-sharp fa-solid fa-house"></i><a href="">Home</a> </div>
+      <div class="body-row"><i class="fa-solid fa-bookmark"></i><a href="">Saved</a></div>
+      <div class="body-row"><i class="fa-solid fa-gear"></i><a href="">Info</a></div>
     </section>
 
     <section class="nav-footer">
-      <div class="body-row"><a href="">Logout</a></div>
+      <div class="body-row"><i class="fa-solid fa-right-from-bracket"></i><a href="">Logout</a></div>
     </section>
 
   </nav>
 
-  <div class="slip">
-    <div class="slip-img">
-      <img src="/img/cereal.jpg" alt="" srcset="">
-    </div>
-    <div class="slip-body">
-       <p>Name: Cereal</p>
-       <p>Calories: 300</p>
-       <p>Servings - 1</p>
-       <p>Cuisine - American</p>
-    </div>
-    <div class="slip-util">
-      <button>Info</button>
-      <button>Save</button>
-    </div>
-  </div>
+  <main>
+    
+    <section class="rec-of-day">
+      <h1>Recipe of the day</h1>
+      <div class="slip">
+        <div class="slip-img">
+          <img src="/img/cereal.jpg" alt="" srcset="">
+        </div>
+        <div class="slip-body">
+           <p>Name : Cereal</p>
+           <p>Calories : 300</p>
+           <p>Servings : 1</p>
+           <p>Time : Morning</p>
+           <p>Cuisine : American</p>
+        </div>
+        <div class="slip-util">
+          <button class="info-button">Info</button>
+          <button class="save-button">Save</button>
+        </div>
+      </div>
+    </section>
+
+
+  </main>
+  
   
 
 
