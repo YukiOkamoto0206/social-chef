@@ -20,14 +20,29 @@ app.get('/create', (req, res) => {
 });
 
 // [home page] (GET /home)
+app.get('/home', (req, res) =>{
+  res.render('home');
+});
 
 // [logout] (GET /login)
+app.get('/logout', (req, res) => {
+  res.redirect('login');
+});
 
 // [settings] (GET /userInfo)
+app.get('/settings', (req, res) => {
+  res.redirect('userInfo');
+});
 
 // [add/update settings] (POST /userInfo)
+app.post('/update', (req, res) => {
+  res.redirect('userInfo');
+});
 
 // [new recipe] has input form (GET /recipe)
+app.get('/newRecipe', (req, res) => {
+  res.redirect('recipe');
+});
 
 // [add recipes] in your own (use form from scrach without api) (POST /recipe)
 
