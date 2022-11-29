@@ -27,9 +27,23 @@ app.post('/login', async (req, res) => {
 });
 
 // [create/sign in] (POST /create)
-app.get('/create', (req, res) => {
-  res.render('create');
+app.post('/create', async (req, res) => {
+  let username = req.body.username;
+  let password = req.body.password;
+  let firstName = req.body.firstName;
+  let lastName = req.body.lastName;
+  let country = req.body.country;
+
+  let sql = `INSERT INTO users
+              (username, pWord, firstName, lastName, country)
+              VALUES
+              (?, ?, ?, ?, ?)`;
+              
+  let params = [username, password, firstName, lastName, country];
+  let rows = await executeSQL(sql, params);
+  res.render('login');
 });
+
 
 // [home page] (GET /home)
 
