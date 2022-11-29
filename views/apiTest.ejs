@@ -1,0 +1,29 @@
+<!-- BASIC HEADER FOR EVERY EJS FILE -->
+<%- include("components/header.ejs") %>
+
+  <!-- TITLE OF THE PAGE -->
+  <title>Social Chef - Api Test Info </title>
+
+  <body>
+
+    Recipies found: <%= recipeInfo[0] %>
+      <br>
+      Recipie Link: <%= recipeInfo[1] %>
+        <br>
+        Cuisine Type: <%= recipeInfo[2] %>
+          <br>
+          Image: <img src='<%= recipeInfo[3] %>' width="200px">
+          <br>
+          Ingredients:
+          <% for (i=0; i< recipeInfo[4].length; i++ ){ %>
+            <%= recipeInfo[4][i] %>
+              <br>
+              <% } %>
+                <br>
+                Recipe Tite: <%= recipeInfo[5] %>
+                  <br>
+                  Meal Type: <%= recipeInfo[6] %>
+
+  </body>
+
+  </html>

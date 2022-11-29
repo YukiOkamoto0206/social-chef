@@ -84,3 +84,11 @@ $ npm run dev
 ```
 
 If you find something wrong, PLEASE comment in GitHub, if not, approve the pull request. If 3 of all(except for the person who create pull request) approve it, MEARGE the branch to main.
+
+## Stash command
+```
+git stash -u
+git stash list
+git stash apply stash@{0}
+
+```
