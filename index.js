@@ -57,6 +57,10 @@ app.get('/home', (req, res) => {
   res.render('home');
 });
 
+app.get('/saved', (req, res) => {
+  res.render('saved');
+});
+
 
 
 // [logout] (GET /login)
@@ -66,7 +70,7 @@ app.get('/logout', (req, res) => {
 
 // [settings] (GET /userInfo)
 app.get('/settings', (req, res) => {
-  res.redirect('userInfo');
+  res.render('settings');
 });
 
 // [add/update settings] (POST /userInfo)

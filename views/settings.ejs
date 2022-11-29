@@ -1,22 +1,38 @@
 <%- include("components/header.ejs") %>
 
-<!-- TITLE OF THE PAGE -->
-<title>Social Chef - Settings </title>
+  <!-- TITLE OF THE PAGE -->
+  <title>Social Chef - Settings </title>
 
-<!-- FONT USED FOR THE PAGE (RETRIVED FROM GOOGLE FONTS) -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Heebo&family=Nunito:wght@200&display=swap" rel="stylesheet">
-<script src="https://kit.fontawesome.com/20718ccc33.js" crossorigin="anonymous" defer></script>
+  <!-- FONT USED FOR THE PAGE (RETRIVED FROM GOOGLE FONTS) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Heebo&family=Nunito:wght@200&display=swap" rel="stylesheet">
+  <script src="https://kit.fontawesome.com/20718ccc33.js" crossorigin="anonymous" defer></script>
 
-<!-- CSS UTILIZED BY THIS PAGE -->
-<link rel="stylesheet" href="/css/general.css" type="text/css" />
+  <!-- CSS UTILIZED BY THIS PAGE -->
+  <link rel="stylesheet" href="/css/general.css" type="text/css" />
 
-<body>
+  <body>
 
-  <div class="trim"></div>
+    <div class="trim"></div>
+    <nav>
+      <section class="nav-header">
+        <h1>Welcome <br> User!</h1>
+      </section>
+
+      <section class="nav-body">
+        <div class="body-row "> <i class="fa-sharp fa-solid fa-house"></i><a href="/home">Home</a> </div>
+        <div class="body-row"><i class="fa-solid fa-bookmark"></i><a href="/saved">Saved</a></div>
+        <div class="body-row active"><i class="fa-solid fa-gear"></i><a href="">Info</a></div>
+      </section>
+
+      <section class="nav-footer">
+        <div class="body-row"><i class="fa-solid fa-right-from-bracket"></i><a href="">Logout</a></div>
+      </section>
+
+    </nav>
 
 
+  </body>
 
-</body>
-</html>
+  </html>
