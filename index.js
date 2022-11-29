@@ -19,25 +19,37 @@ app.get('/create', (req, res) => {
   res.render('create');
 });
 
+// [home page] (GET /home)
 app.get('/home', (req, res) => {
   res.render('home');
 });
 
-// [home page] (GET /home)
-
-// [logout] (GET /login)
-
 // [settings] (GET /userInfo)
+app.get('/settings', (req, res) => {
+  res.render('settings');
+});
 
 // [add/update settings] (POST /userInfo)
 
-// [new recipe] has input form (GET /recipe)
-
-// [add recipes] in your own (use form from scrach without api) (POST /recipe)
+// [save recipes] from api (GET /savedRecipes)
+app.get('/savedRecipes', (req, res) => {
+  res.render('saved');
+});
 
 // [save recipes] from api (GET /savedRecipes)
 
+// [new recipe] has input form (GET /recipe)
+app.get('/addRecipe', (req, res) => {
+  res.render('newRecipe');
+});
+// [add recipes] in your own (use form from scrach without api) (POST /recipe)
+
 // [delete recipes] (GET /recipe)
+
+// [logout] (GET /login)
+app.get('/logout', (req, res) => {
+  res.redirect('/');
+});
 
 app.get('/test', (req, res) => {
   res.render('test');
