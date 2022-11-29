@@ -5,9 +5,17 @@ app.set('view engine', 'ejs');
 app.use(express.static('public'));
 const fetch = require('node-fetch');
 
+const mysql = require('mysql');
+const pool = dbConnection();
+
 // for environment file
 const dotenv = require('dotenv');
 dotenv.config();
+
+
+app.get('/', (req, res) => {
+  res.render('login');
+});
 
 // [login page] (POST /login)
 app.post('/', async (req, res) => {
@@ -24,6 +32,10 @@ app.post('/', async (req, res) => {
   } else {
     res.render('login', {"error": "Wrong Credentials!"});
   }
+});
+
+app.get('/create', (req, res) => {
+  res.render('create');
 });
 
 // [create/sign in] (POST /create)
@@ -44,28 +56,23 @@ app.post('/create', async (req, res) => {
   res.render('login');
 });
 
-app.get('/', (req, res) => {
-  res.render('login');
-});
-
-app.get('/create', (req, res) => {
-  res.render('create');
-});
 
 // [home page] (GET /home)
-app.get('/home', (req, res) => {
-  res.render('home');
+app.get('/home', async (req, res) => {
+
+  let sql = `Select * from cuisines`;
+  let data = await executeSQL(sql);
+  
+  res.render('home', {cuisines : data});
 });
 
 app.get('/saved', (req, res) => {
   res.render('saved');
 });
 
-
-
 // [logout] (GET /login)
 app.get('/logout', (req, res) => {
-  res.redirect('login');
+  res.redirect('/');
 });
 
 // [settings] (GET /userInfo)

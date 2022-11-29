@@ -69,7 +69,11 @@
           <div class="input-row ">
             <label for="">Cuisine</label>
             <select class="cuisine-input" name="cusine" id="cars">
-              <option value="1">Pick One...</option>
+              <% for (let i=0; i < cuisines.length; i++) { %>
+                <option value="<%=cuisines[i].countryId%>">
+                  <%=cuisines[i].country %>
+                </option>
+                <% } %>
             </select>
           </div>
 
