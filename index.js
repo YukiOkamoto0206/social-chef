@@ -10,31 +10,64 @@ const dotenv = require('dotenv');
 dotenv.config();
 
 // [login page] (POST /login)
-app.get('/', (req, res) => {
-  res.render('login');
+app.post('/login', async (req, res) => {
+  let username = req.body.username;
+  let password = req.body.password;
+
+  let sql = `SELECT pWord
+             FROM users
+             WHERE username =  ?`;
+  let rows = await executeSQL(sql, [username]);
+  if(sql.pWord == password){
+    req.session.authenticated = true;
+    res.render('home');
+  } else {
+    res.render('login', {"error": "Wrong Credentials!"});
+  }
 });
 
 // [create/sign in] (POST /create)
-app.get('/create', (req, res) => {
-  res.render('create');
+app.post('/create', async (req, res) => {
+  let username = req.body.username;
+  let password = req.body.password;
+  let firstName = req.body.firstName;
+  let lastName = req.body.lastName;
+  let country = req.body.country;
+
+  let sql = `INSERT INTO users
+              (username, pWord, firstName, lastName, country)
+              VALUES
+              (?, ?, ?, ?, ?)`;
+              
+  let params = [username, password, firstName, lastName, country];
+  let rows = await executeSQL(sql, params);
+  res.render('login');
 });
 
+
 // [home page] (GET /home)
-app.get('/home', (req, res) => {
-  res.render('home');
+
+// [logout] (GET /login)
+app.get('/logout', (req, res) => {
+  res.redirect('login');
 });
 
 // [settings] (GET /userInfo)
 app.get('/settings', (req, res) => {
-  res.render('settings');
+  res.redirect('userInfo');
 });
 
 // [add/update settings] (POST /userInfo)
-
-// [save recipes] from api (GET /savedRecipes)
-app.get('/savedRecipes', (req, res) => {
-  res.render('saved');
+app.post('/update', (req, res) => {
+  res.redirect('userInfo');
 });
+
+// [new recipe] has input form (GET /recipe)
+app.get('/newRecipe', (req, res) => {
+  res.redirect('recipe');
+});
+
+// [add recipes] in your own (use form from scrach without api) (POST /recipe)
 
 // [save recipes] from api (GET /savedRecipes)
 
@@ -80,6 +113,28 @@ app.get('/api', async (req, res) => {
   ];
   res.render('apiTest', { recipeInfo: recipeInfo });
 });
+
+async function executeSQL(sql, params){
+  return new Promise (function (resolve, reject) {
+  pool.query(sql, params, function (err, rows, fields) {
+  if (err) throw err;
+     resolve(rows);
+  });
+  });
+  }//executeSQL
+  //values in red must be updated
+  function dbConnection(){
+     const pool  = mysql.createPool({
+        connectionLimit: 100,
+        host: "cwe1u6tjijexv3r6.cbetxkdyhwsb.us-east-1.rds.amazonaws.com",
+        user: "nstwa3r82fbmw3bw",
+        password: "z26ca8fd64u3m9xb",
+        database: "x1akpmooqm7zd50u"
+     }); 
+  
+     return pool;
+  
+  } //dbConnection
 
 app.listen(port, () => {
   console.log(`Example app listening on port http://localhost:${port}`);
