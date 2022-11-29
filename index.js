@@ -20,9 +20,6 @@ app.get('/create', (req, res) => {
 });
 
 // [home page] (GET /home)
-app.get('/home', (req, res) =>{
-  res.render('home');
-});
 
 // [logout] (GET /login)
 app.get('/logout', (req, res) => {
