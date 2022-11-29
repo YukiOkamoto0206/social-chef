@@ -2,9 +2,66 @@
   margin: 8rem 5% 0 5%;
 }
 
-.rec-of-day h1 {
-  color:  #daa84c;
+.rec-of-day h1,
+.input-container h1 {
+  color: #daa84c;
   font-family: 'Nunito', sans-serif;
   text-align: center;
-  font-size: 32px;
+  font-size: 28px;
+}
+
+.input-container {
+  margin-top: 5rem;
+}
+
+
+#meal-time {
+  accent-color: #daa84c;
+  border: white;
+}
+
+form {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  column-gap: 2rem;
+}
+
+label {
+  display: block;
+  text-align: center;
+  margin-bottom: 0.4rem;
+  font-size: 0.8rem;
+}
+
+.input-row {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+
+}
+
+.cuisine-input,
+.key-text {
+  height: 25px;
+}
+
+.key-text {
+  width: 18rem;
+}
+
+.cuisine-input {
+  width: 10rem;
+}
+
+form button {
+  margin-top: 1rem;
+  background-color: #535546;
+  width: 80px;
+  height: 30px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  border: none;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
 }
