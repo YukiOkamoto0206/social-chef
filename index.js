@@ -10,7 +10,7 @@ const dotenv = require('dotenv');
 dotenv.config();
 
 // [login page] (POST /login)
-app.post('/login', async (req, res) => {
+app.post('/', async (req, res) => {
   let username = req.body.username;
   let password = req.body.password;
 
@@ -44,8 +44,24 @@ app.post('/create', async (req, res) => {
   res.render('login');
 });
 
+app.get('/', (req, res) => {
+  res.render('login');
+});
+
+app.get('/create', (req, res) => {
+  res.render('create');
+});
 
 // [home page] (GET /home)
+app.get('/home', (req, res) => {
+  res.render('home');
+});
+
+app.get('/saved', (req, res) => {
+  res.render('saved');
+});
+
+
 
 // [logout] (GET /login)
 app.get('/logout', (req, res) => {
@@ -54,7 +70,7 @@ app.get('/logout', (req, res) => {
 
 // [settings] (GET /userInfo)
 app.get('/settings', (req, res) => {
-  res.redirect('userInfo');
+  res.render('settings');
 });
 
 // [add/update settings] (POST /userInfo)
@@ -71,7 +87,18 @@ app.get('/newRecipe', (req, res) => {
 
 // [save recipes] from api (GET /savedRecipes)
 
+// [new recipe] has input form (GET /recipe)
+app.get('/addRecipe', (req, res) => {
+  res.render('newRecipe');
+});
+// [add recipes] in your own (use form from scrach without api) (POST /recipe)
+
 // [delete recipes] (GET /recipe)
+
+// [logout] (GET /login)
+app.get('/logout', (req, res) => {
+  res.redirect('/');
+});
 
 app.get('/test', (req, res) => {
   res.render('test');

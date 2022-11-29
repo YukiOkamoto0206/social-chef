@@ -1,0 +1,10 @@
+.rec-of-day {
+  margin: 8rem 5% 0 5%;
+}
+
+.rec-of-day h1 {
+  color:  #daa84c;
+  font-family: 'Nunito', sans-serif;
+  text-align: center;
+  font-size: 32px;
+}

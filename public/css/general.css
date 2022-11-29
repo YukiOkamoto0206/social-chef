@@ -1,0 +1,156 @@
+body {
+  margin: 45px 0 0 230px;
+  padding: 0;
+  background-color: #FFFBF8;
+  font-family: 'Heebo', sans-serif;
+  z-index: -1;
+}
+
+nav {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  text-align: center;
+  left: 0;
+  top: 0;
+  z-index: 1;
+  background-color: #fbe8d6;
+  height: 100%;
+  width: 230px;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 0.0625em 0.0625em, rgba(0, 0, 0, 0.25) 0px 0.125em 0.5em, rgba(255, 255, 255, 0.1) 0px 0px 0px 1px inset;
+}
+
+.trim {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 0;
+  background-color: #fbe8d6;
+  height: 45px;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+}
+
+.nav-header {
+  background-color: #535546;
+  padding: 2.3rem;
+  color: white;
+  font-size: 20px;
+  font-family: 'Nunito', sans-serif;
+  line-height: 35px;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 0.0625em 0.0625em, rgba(0, 0, 0, 0.25) 0px 0.125em 0.5em, rgba(255, 255, 255, 0.1) 0px 0px 0px 1px inset;
+
+}
+
+.nav-body {
+  margin-top: 2rem;
+}
+
+.body-row {
+  font-size: 18px;
+  padding: 1rem;
+  transition: 0.4s;
+}
+
+.fa-solid {
+  color: #7a5d35;
+}
+
+.body-row a {
+  text-decoration: none;
+  color: #7a5d35;
+  margin-left: 5px;
+}
+
+.active {
+  background-color: #CBAC70;
+  box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+}
+
+
+.body-row:hover {
+  background-color: #eece8f84;
+}
+
+.nav-footer {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.slip {
+  display: flex;
+  flex-direction: row;
+  column-gap: 2.2rem;
+  max-height: 10.5rem;
+  max-width: 49rem;
+  margin: 3rem auto;
+  border-radius: 20px;
+  position: relative;
+  background-color: white;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.slip-img img {
+  height: 100%;
+  object-fit: contain;
+  border-radius: 20px 0 0 20px;
+}
+
+.slip-img {
+  width: 30%;
+  margin-right: 1rem;
+
+}
+
+.slip-body {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 70px 70px 70px;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  column-gap: 0.5rem;
+}
+
+.slip-body p {
+  margin: 0;
+  font-size: 16px;
+  font-family: 'Nunito', sans-serif;
+
+}
+
+.slip-util {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  margin-right: 2rem;
+  margin-bottom: 1rem;
+}
+
+.slip-util button {
+  width: 80px;
+  height: 30px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  border: none;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.save-button {
+  background-color: #535546;
+}
+
+.info-button {
+  background-color: #CBAC70;
+}
+
+.delete-button {
+  background-color: #8e4343;
+}
