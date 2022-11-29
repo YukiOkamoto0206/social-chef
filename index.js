@@ -10,7 +10,7 @@ const dotenv = require('dotenv');
 dotenv.config();
 
 // [login page] (POST /login)
-app.post('/login', async (req, res) => {
+app.post('/', async (req, res) => {
   let username = req.body.username;
   let password = req.body.password;
 
@@ -44,8 +44,20 @@ app.post('/create', async (req, res) => {
   res.render('login');
 });
 
+app.get('/', (req, res) => {
+  res.render('login');
+});
+
+app.get('/create', (req, res) => {
+  res.render('create');
+});
 
 // [home page] (GET /home)
+app.get('/home', (req, res) => {
+  res.render('home');
+});
+
+
 
 // [logout] (GET /login)
 app.get('/logout', (req, res) => {
