@@ -1,28 +1,65 @@
 const express = require('express');
+const mysql = require('mysql');
 const app = express();
+const pool = dbConnection();
+const bcrypt = require('bcrypt');
+const session = require('express-session');
 const port = 3000;
+
 app.set('view engine', 'ejs');
 app.use(express.static('public'));
-const fetch = require('node-fetch');
+app.use(express.urlencoded({ extended: true }));
 
 // for environment file
-const dotenv = require('dotenv');
-dotenv.config();
+require('dotenv').config();
 
-// [login page] (POST /login)
-app.post('/', async (req, res) => {
-  let username = req.body.username;
-  let password = req.body.password;
+app.set('trust proxy', 1); // trust first proxy
+const option = {
+  secret: 'random ch@r@ct3rs',
+  resave: false,
+  saveUninitialized: false,
+  cookie: { maxAge: 60 * 60 * 1000 },
+};
+app.use(session(option));
+app.use(express.json());
 
-  let sql = `SELECT pWord
-             FROM users
-             WHERE username =  ?`;
-  let rows = await executeSQL(sql, [username]);
-  if(sql.pWord == password){
-    req.session.authenticated = true;
+// middleware function
+const isAuthenticated = (req, res, next) => {
+  if (req.session.userId != undefined) {
+    next();
+  } else {
+    res.redirect('/');
+  }
+};
+
+app.get('/', (req, res) => {
+  if (req.session.userId != undefined) {
     res.render('home');
   } else {
-    res.render('login', {"error": "Wrong Credentials!"});
+    res.render('login');
+  }
+});
+
+// [login page] (POST /login)
+app.post('/login', async (req, res) => {
+  const username = req.body.username;
+  const password = req.body.password;
+  let passwordHash = '';
+  const sql = ` SELECT userID, pWord
+                FROM users
+                WHERE username = ?`;
+  const rows = await executeSQL(sql, username);
+
+  if (rows.length > 0) {
+    passwordHash = rows[0].pWord;
+  }
+
+  const match = await bcrypt.compare(password, passwordHash);
+  if (match) {
+    req.session.userId = rows[0].userID;
+    res.render('home');
+  } else {
+    res.redirect('/');
   }
 });
 
@@ -34,52 +71,52 @@ app.post('/create', async (req, res) => {
   let lastName = req.body.lastName;
   let country = req.body.country;
 
+  // validation for duplicate user
+  let sql_user = `SELECT username
+                  FROM users`;
+  let user_row = await executeSQL(sql_user);
+  for (i = 0; i < user_row.length; i++) {
+    if (user_row[i].username == username) {
+      console.log('error_create');
+      res.render('create', { error: 'Account has already exsisted!' });
+    }
+  }
+
   let sql = `INSERT INTO users
               (username, pWord, firstName, lastName, country)
               VALUES
               (?, ?, ?, ?, ?)`;
-              
+
   let params = [username, password, firstName, lastName, country];
   let rows = await executeSQL(sql, params);
   res.render('login');
 });
 
-app.get('/', (req, res) => {
-  res.render('login');
-});
-
 app.get('/create', (req, res) => {
-  res.render('create');
+  res.render('create', { error: '' });
 });
 
 // [home page] (GET /home)
-app.get('/home', (req, res) => {
+app.get('/home', isAuthenticated, (req, res) => {
   res.render('home');
 });
 
-app.get('/saved', (req, res) => {
+app.get('/saved', isAuthenticated, (req, res) => {
   res.render('saved');
 });
 
-
-
-// [logout] (GET /login)
-app.get('/logout', (req, res) => {
-  res.redirect('login');
-});
-
 // [settings] (GET /userInfo)
-app.get('/settings', (req, res) => {
+app.get('/settings', isAuthenticated, (req, res) => {
   res.render('settings');
 });
 
 // [add/update settings] (POST /userInfo)
-app.post('/update', (req, res) => {
+app.post('/update', isAuthenticated, (req, res) => {
   res.redirect('userInfo');
 });
 
 // [new recipe] has input form (GET /recipe)
-app.get('/newRecipe', (req, res) => {
+app.get('/newRecipe', isAuthenticated, (req, res) => {
   res.redirect('recipe');
 });
 
@@ -88,7 +125,7 @@ app.get('/newRecipe', (req, res) => {
 // [save recipes] from api (GET /savedRecipes)
 
 // [new recipe] has input form (GET /recipe)
-app.get('/addRecipe', (req, res) => {
+app.get('/addRecipe', isAuthenticated, (req, res) => {
   res.render('newRecipe');
 });
 // [add recipes] in your own (use form from scrach without api) (POST /recipe)
@@ -97,6 +134,7 @@ app.get('/addRecipe', (req, res) => {
 
 // [logout] (GET /login)
 app.get('/logout', (req, res) => {
+  req.session.destroy();
   res.redirect('/');
 });
 
@@ -130,27 +168,25 @@ app.get('/api', async (req, res) => {
   res.render('apiTest', { recipeInfo: recipeInfo });
 });
 
-async function executeSQL(sql, params){
-  return new Promise (function (resolve, reject) {
-  pool.query(sql, params, function (err, rows, fields) {
-  if (err) throw err;
-     resolve(rows);
+async function executeSQL(sql, params) {
+  return new Promise(function (resolve, reject) {
+    pool.query(sql, params, function (err, rows, fields) {
+      if (err) throw err;
+      resolve(rows);
+    });
   });
+} //executeSQL
+//values in red must be updated
+function dbConnection() {
+  const pool = mysql.createPool({
+    connectionLimit: 10,
+    host: 'h1use0ulyws4lqr1.cbetxkdyhwsb.us-east-1.rds.amazonaws.com',
+    user: 'e7lupxcx8d4xn9t6',
+    password: 'cay2rck66m43hje5',
+    database: 'ejes6a2uewb3lyp4',
   });
-  }//executeSQL
-  //values in red must be updated
-  function dbConnection(){
-     const pool  = mysql.createPool({
-        connectionLimit: 100,
-        host: "cwe1u6tjijexv3r6.cbetxkdyhwsb.us-east-1.rds.amazonaws.com",
-        user: "nstwa3r82fbmw3bw",
-        password: "z26ca8fd64u3m9xb",
-        database: "x1akpmooqm7zd50u"
-     }); 
-  
-     return pool;
-  
-  } //dbConnection
+  return pool;
+} //dbConnection
 
 app.listen(port, () => {
   console.log(`Example app listening on port http://localhost:${port}`);

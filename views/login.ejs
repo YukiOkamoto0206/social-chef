@@ -33,16 +33,16 @@
         <h1 class="top-and-bottom">Log Into Account </h1>
 
         <!-- This form will send info to database to see if user exists -->
-        <form>
+        <form method="POST" action="/login">
 
           <div class="input-fields">
-            <label for="">Username</label>
+            <label for="username">Username</label>
             <input type="text" name="username">
           </div>
 
           <div class="input-fields">
-            <label for="">Password</label>
-            <input type="password">
+            <label for="password">Password</label>
+            <input type="password" name="password">
           </div>
 
           <button>Sign In</button>
