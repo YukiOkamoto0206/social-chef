@@ -59,7 +59,12 @@ app.get('/create', (req, res) => {
 app.get('/home', async (req, res) => {
   let sql = `Select * from cuisines`;
   let cuisines = await executeSQL(sql);
-  res.render('home', { cuisines: cuisines });
+
+  let dailyCall = `https://api.edamam.com/api/recipes/v2?type=public&q=chicken&app_id=${process.env.API_ID}&app_key=${process.env.API_KEY}`;
+  let response = await fetch(dailyCall);
+  let daily = await response.json();
+
+  res.render('home', { cuisines: cuisines, daily: daily });
 });
 
 app.get('/homeSearch', async (req, res) => {
@@ -71,18 +76,21 @@ app.get('/homeSearch', async (req, res) => {
   if (mealTime == undefined) {
     mealTime = 'lunch';
   }
-
   // puting that info into the api url and turning the response into json
   let apiCall = `https://api.edamam.com/api/recipes/v2?type=public&q=${keyword}&app_id=${process.env.API_ID}&app_key=${process.env.API_KEY}&cuisineType=${cuisineType}&mealType=${mealTime}`;
   let response = await fetch(apiCall);
   let recipes = await response.json();
+
+  let dailyCall = `https://api.edamam.com/api/recipes/v2?type=public&q=chicken&app_id=${process.env.API_ID}&app_key=${process.env.API_KEY}`;
+  let dayRes = await fetch(dailyCall);
+  let daily = await dayRes.json();
 
   // grabbing the cuisines from the database
   let sql = `Select * from cuisines`;
   let cuisines = await executeSQL(sql);
 
   // passing the data onto the home page from the db and api call
-  res.render('home', { cuisines: cuisines, recipes: recipes });
+  res.render('home', { cuisines: cuisines, recipes: recipes, daily: daily });
 });
 
 app.get('/saved', (req, res) => {
