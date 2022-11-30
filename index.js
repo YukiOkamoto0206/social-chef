@@ -65,7 +65,7 @@ app.post('/login', async (req, res) => {
     const match = await bcrypt.compare(password, passwordHash);
     if (match) {
       req.session.userId = rows[0].userID;
-      res.render('home');
+      res.redirct('home');
     } else {
       res.redirect('/');
     }
