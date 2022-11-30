@@ -180,10 +180,10 @@ async function executeSQL(sql, params) {
 function dbConnection() {
   const pool = mysql.createPool({
     connectionLimit: 10,
-    host: 'cwe1u6tjijexv3r6.cbetxkdyhwsb.us-east-1.rds.amazonaws.com',
-    user: 'nstwa3r82fbmw3bw',
-    password: 'z26ca8fd64u3m9xb',
-    database: 'x1akpmooqm7zd50u',
+    host: 'h1use0ulyws4lqr1.cbetxkdyhwsb.us-east-1.rds.amazonaws.com',
+    user: 'e7lupxcx8d4xn9t6',
+    password: 'cay2rck66m43hje5',
+    database: 'ejes6a2uewb3lyp4',
   });
   return pool;
 } //dbConnection
