@@ -65,7 +65,7 @@ app.post('/login', async (req, res) => {
 });
 
 // [create/sign in] (POST /create)
-app.post('/create', isAuthenticated, async (req, res) => {
+app.post('/create', async (req, res) => {
   let username = req.body.username;
   let password = req.body.password;
   let firstName = req.body.firstName;
@@ -93,8 +93,8 @@ app.post('/create', isAuthenticated, async (req, res) => {
   res.render('login');
 });
 
-app.get('/create', isAuthenticated, (req, res) => {
-  res.render('create');
+app.get('/create', (req, res) => {
+  res.render('create', { error: '' });
 });
 
 // [home page] (GET /home)
