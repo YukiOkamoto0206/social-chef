@@ -10,9 +10,8 @@ app.set('view engine', 'ejs');
 app.use(express.static('public'));
 app.use(express.urlencoded({ extended: true }));
 
-
 const pool = dbConnection();
-
+const fetch = require('node-fetch');
 // for environment file
 require('dotenv').config();
 
@@ -63,15 +62,14 @@ app.post('/login', async (req, res) => {
   } else {
     res.render('login', { error: 'Wrong Credentials!' });
 
-  const match = await bcrypt.compare(password, passwordHash);
-  if (match) {
-    req.session.userId = rows[0].userID;
-    res.render('home');
-  } else {
-    res.redirect('/');
-
+    const match = await bcrypt.compare(password, passwordHash);
+    if (match) {
+      req.session.userId = rows[0].userID;
+      res.render('home');
+    } else {
+      res.redirect('/');
+    }
   }
-}
 });
 
 // [create/sign in] (POST /create)
@@ -200,7 +198,7 @@ app.get('/deleteRecipe', isAuthenticated, async (req, res) => {
   let recipeId = req.query.recipeId;
   let userId = req.query.userId;
   let sql = `DELETE FROM recipes
-             WHERE recipeId = ? AND userId = ?`
+             WHERE recipeId = ? AND userId = ?`;
   let rows = await executeSQL(sql, [recipeId, userId]);
   res.redirect('settings');
 });
@@ -253,13 +251,13 @@ async function executeSQL(sql, params) {
 function dbConnection() {
   const pool = mysql.createPool({
     connectionLimit: 10,
-    connectTimeout  : 60 * 60 * 1000,
-    acquireTimeout  : 60 * 60 * 1000,
-    timeout         : 60 * 60 * 1000,
+    connectTimeout: 60 * 60 * 1000,
+    acquireTimeout: 60 * 60 * 1000,
+    timeout: 60 * 60 * 1000,
     host: 'h1use0ulyws4lqr1.cbetxkdyhwsb.us-east-1.rds.amazonaws.com',
     user: 'e7lupxcx8d4xn9t6',
     password: 'cay2rck66m43hje5',
-    database: 'ejes6a2uewb3lyp4'
+    database: 'ejes6a2uewb3lyp4',
   });
 
   return pool;
