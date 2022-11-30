@@ -79,6 +79,11 @@ app.post('/create', async (req, res) => {
   let firstName = req.body.firstName;
   let lastName = req.body.lastName;
   let country = req.body.country;
+  let retype = req.body.re-password;
+
+  if (password != retype){
+    res.render('create', { error: 'Passwords do not match!' });
+  }
 
   let hash = bcrypt.hashSync(password, 10);
   // validation for duplicate user
@@ -149,8 +154,10 @@ app.get('/saved', isAuthenticated, (req, res) => {
 });
 
 // [settings] (GET /userInfo)
-app.get('/settings', isAuthenticated, (req, res) => {
-  res.render('settings');
+app.get('/settings', isAuthenticated, async (req, res) => {
+  let sql = `SELECT * FROM users`
+  let data = await executeSQL(sql);
+  res.render('settings', {"data": data});
 });
 
 // [add/update settings] (POST /userInfo)
