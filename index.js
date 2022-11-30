@@ -1,7 +1,7 @@
 const express = require('express');
 const mysql = require('mysql');
 const app = express();
-const pool = dbConnection();
+
 const bcrypt = require('bcrypt');
 const session = require('express-session');
 const port = 3000;
@@ -10,6 +10,8 @@ app.set('view engine', 'ejs');
 app.use(express.static('public'));
 app.use(express.urlencoded({ extended: true }));
 
+const pool = dbConnection();
+const fetch = require('node-fetch');
 // for environment file
 require('dotenv').config();
 
@@ -54,12 +56,19 @@ app.post('/login', async (req, res) => {
     passwordHash = rows[0].pWord;
   }
 
-  const match = await bcrypt.compare(password, passwordHash);
-  if (match) {
-    req.session.userId = rows[0].userID;
+  if (sql.pWord == password) {
+    req.session.authenticated = true;
     res.render('home');
   } else {
-    res.redirect('/');
+    res.render('login', { error: 'Wrong Credentials!' });
+
+    const match = await bcrypt.compare(password, passwordHash);
+    if (match) {
+      req.session.userId = rows[0].userID;
+      res.render('home');
+    } else {
+      res.redirect('/');
+    }
   }
 });
 
@@ -98,8 +107,41 @@ app.get('/create', (req, res) => {
 });
 
 // [home page] (GET /home)
-app.get('/home', isAuthenticated, (req, res) => {
-  res.render('home');
+app.get('/home', async (req, res) => {
+  let sql = `Select * from cuisines`;
+  let cuisines = await executeSQL(sql);
+
+  let dailyCall = `https://api.edamam.com/api/recipes/v2?type=public&q=chicken&app_id=${process.env.API_ID}&app_key=${process.env.API_KEY}`;
+  let response = await fetch(dailyCall);
+  let daily = await response.json();
+
+  res.render('home', { cuisines: cuisines, daily: daily });
+});
+
+app.get('/homeSearch', async (req, res) => {
+  // Grabbing the info from the form in home page
+  let keyword = req.query.keyword;
+  let cuisineType = req.query.cuisine;
+  let mealTime = req.query.time;
+
+  if (mealTime == undefined) {
+    mealTime = 'lunch';
+  }
+  // puting that info into the api url and turning the response into json
+  let apiCall = `https://api.edamam.com/api/recipes/v2?type=public&q=${keyword}&app_id=${process.env.API_ID}&app_key=${process.env.API_KEY}&cuisineType=${cuisineType}&mealType=${mealTime}`;
+  let response = await fetch(apiCall);
+  let recipes = await response.json();
+
+  let dailyCall = `https://api.edamam.com/api/recipes/v2?type=public&q=chicken&app_id=${process.env.API_ID}&app_key=${process.env.API_KEY}`;
+  let dayRes = await fetch(dailyCall);
+  let daily = await dayRes.json();
+
+  // grabbing the cuisines from the database
+  let sql = `Select * from cuisines`;
+  let cuisines = await executeSQL(sql);
+
+  // passing the data onto the home page from the db and api call
+  res.render('home', { cuisines: cuisines, recipes: recipes, daily: daily });
 });
 
 app.get('/saved', isAuthenticated, (req, res) => {
@@ -157,7 +199,7 @@ app.get('/deleteRecipe', isAuthenticated, async (req, res) => {
   let recipeId = req.query.recipeId;
   let userId = req.query.userId;
   let sql = `DELETE FROM recipes
-             WHERE recipeId = ? AND userId = ?`
+             WHERE recipeId = ? AND userId = ?`;
   let rows = await executeSQL(sql, [recipeId, userId]);
   res.redirect('settings');
 });
@@ -218,6 +260,7 @@ function dbConnection() {
     password: 'cay2rck66m43hje5',
     database: 'ejes6a2uewb3lyp4'
   });
+
   return pool;
 } //dbConnection
 
