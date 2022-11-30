@@ -72,7 +72,13 @@ app.post('/create', async (req, res) => {
   let firstName = req.body.firstName;
   let lastName = req.body.lastName;
   let country = req.body.country;
+  let retype = req.body.re-password;
 
+  if (password != retype){
+    res.render('create', { error: 'Passwords do not match!' });
+  }
+
+  let hash = bcrypt.hashSync(password, 10);
   // validation for duplicate user
   let sql_user = `SELECT username
                   FROM users`;
@@ -89,7 +95,7 @@ app.post('/create', async (req, res) => {
               VALUES
               (?, ?, ?, ?, ?)`;
 
-  let params = [username, password, firstName, lastName, country];
+  let params = [username, hash, firstName, lastName, country];
   let rows = await executeSQL(sql, params);
   res.render('login');
 });
@@ -141,8 +147,10 @@ app.get('/saved', isAuthenticated, (req, res) => {
 });
 
 // [settings] (GET /userInfo)
-app.get('/settings', isAuthenticated, (req, res) => {
-  res.render('settings');
+app.get('/settings', isAuthenticated, async (req, res) => {
+  let sql = `SELECT * FROM users`
+  let data = await executeSQL(sql);
+  res.render('settings', {"data": data});
 });
 
 // [add/update settings] (POST /userInfo)
@@ -244,13 +252,13 @@ async function executeSQL(sql, params) {
 function dbConnection() {
   const pool = mysql.createPool({
     connectionLimit: 10,
-    connectTimeout: 60 * 60 * 1000,
-    acquireTimeout: 60 * 60 * 1000,
-    timeout: 60 * 60 * 1000,
+    connectTimeout  : 60 * 60 * 1000,
+    acquireTimeout  : 60 * 60 * 1000,
+    timeout         : 60 * 60 * 1000,
     host: 'h1use0ulyws4lqr1.cbetxkdyhwsb.us-east-1.rds.amazonaws.com',
     user: 'e7lupxcx8d4xn9t6',
     password: 'cay2rck66m43hje5',
-    database: 'ejes6a2uewb3lyp4',
+    database: 'ejes6a2uewb3lyp4'
   });
 
   return pool;
