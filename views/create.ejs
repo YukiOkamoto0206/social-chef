@@ -1,30 +1,30 @@
 <!-- BASIC HEADER FOR EVERY EJS FILE -->
 <%- include("components/header.ejs") %>
 
-<!-- TITLE OF THE PAGE -->
-<title>Social Chef - Create Account </title>
+  <!-- TITLE OF THE PAGE -->
+  <title>Social Chef - Create Account </title>
 
-<!-- FONT USED FOR THE PAGE (RETRIVED FROM GOOGLE FONTS) -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+  <!-- FONT USED FOR THE PAGE (RETRIVED FROM GOOGLE FONTS) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
 
-<!-- CSS UTILIZED BY THIS PAGE -->
-<link rel="stylesheet" href="/css/login-and-create.css" type="text/css" />  
-<link rel="stylesheet" href="/css/create.css" type="text/css" />
-</head>
+  <!-- CSS UTILIZED BY THIS PAGE -->
+  <link rel="stylesheet" href="/css/login-and-create.css" type="text/css" />
+  <link rel="stylesheet" href="/css/create.css" type="text/css" />
+  </head>
 
-<body>
+  <body>
 
-  <section class="left-side">
-    <h1> Welcome <br> To Social Chef</h1>
-    <h2>A Place to Discover A <br> New World Of Flavors </h2>
-  </section>
+    <section class="left-side">
+      <h1> Welcome <br> To Social Chef</h1>
+      <h2>A Place to Discover A <br> New World Of Flavors </h2>
+    </section>
 
-  <main>
-    <div class="f-container">
+    <main>
+      <div class="f-container">
         <h1 class="top-and-bottom">Create New Account </h1>
-        <form>
+        <form method="POST" action="/create">
           <div class="info-box">
             <div class="input-fields">
               <label for="">First Name</label>
@@ -32,7 +32,7 @@
               <label for="">Username</label>
               <input type="text" name="username">
               <label for="">Password</label>
-              <input type="password">
+              <input type="password" name="password">
             </div>
             <div class="input-fields">
               <label for="">Last Name</label>
@@ -40,18 +40,20 @@
               <label for="">Country</label>
               <input type="text" name="country">
               <label for="">Re-Type Password</label>
-              <input type="re-password">
+              <input type="re-password" name="re-password">
             </div>
           </div>
           <button>Register</button>
         </form>
 
-        <% if (error != undefined) { %>
+        <% if (error !=undefined) { %>
           <%= error %>
-        <% } %>
-        <p class="top-and-bottom" >Oh You do Have an Account? Don't Worry <br> <a href="/">Click Here</a>  to Log In</p>
-    </div>
-  </main>
-  
-</body>
-</html>
+            <% } %>
+              <p class="top-and-bottom">Oh You do Have an Account? Don't Worry <br> <a href="/">Click Here</a> to Log In
+              </p>
+      </div>
+    </main>
+
+  </body>
+
+  </html>

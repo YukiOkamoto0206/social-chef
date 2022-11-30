@@ -71,6 +71,7 @@ app.post('/create', async (req, res) => {
   let lastName = req.body.lastName;
   let country = req.body.country;
 
+  let hash = bcrypt.hashSync(password, 10);
   // validation for duplicate user
   let sql_user = `SELECT username
                   FROM users`;
@@ -87,7 +88,7 @@ app.post('/create', async (req, res) => {
               VALUES
               (?, ?, ?, ?, ?)`;
 
-  let params = [username, password, firstName, lastName, country];
+  let params = [username, hash, firstName, lastName, country];
   let rows = await executeSQL(sql, params);
   res.render('login');
 });
@@ -209,10 +210,13 @@ async function executeSQL(sql, params) {
 function dbConnection() {
   const pool = mysql.createPool({
     connectionLimit: 10,
+    connectTimeout  : 60 * 60 * 1000,
+    acquireTimeout  : 60 * 60 * 1000,
+    timeout         : 60 * 60 * 1000,
     host: 'h1use0ulyws4lqr1.cbetxkdyhwsb.us-east-1.rds.amazonaws.com',
     user: 'e7lupxcx8d4xn9t6',
     password: 'cay2rck66m43hje5',
-    database: 'ejes6a2uewb3lyp4',
+    database: 'ejes6a2uewb3lyp4'
   });
   return pool;
 } //dbConnection
