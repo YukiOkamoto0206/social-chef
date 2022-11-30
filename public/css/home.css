@@ -47,11 +47,12 @@ label {
 }
 
 .key-text {
-  width: 18rem;
+  width: 15rem;
 }
 
 .cuisine-input {
   width: 10rem;
+  height: 30px;
 }
 
 form button {

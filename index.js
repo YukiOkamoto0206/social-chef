@@ -12,7 +12,6 @@ const pool = dbConnection();
 const dotenv = require('dotenv');
 dotenv.config();
 
-
 app.get('/', (req, res) => {
   res.render('login');
 });
@@ -26,11 +25,11 @@ app.post('/', async (req, res) => {
              FROM users
              WHERE username =  ?`;
   let rows = await executeSQL(sql, [username]);
-  if(sql.pWord == password){
+  if (sql.pWord == password) {
     req.session.authenticated = true;
     res.render('home');
   } else {
-    res.render('login', {"error": "Wrong Credentials!"});
+    res.render('login', { error: 'Wrong Credentials!' });
   }
 });
 
@@ -50,20 +49,40 @@ app.post('/create', async (req, res) => {
               (username, pWord, firstName, lastName, country)
               VALUES
               (?, ?, ?, ?, ?)`;
-              
+
   let params = [username, password, firstName, lastName, country];
   let rows = await executeSQL(sql, params);
   res.render('login');
 });
 
-
 // [home page] (GET /home)
 app.get('/home', async (req, res) => {
-
   let sql = `Select * from cuisines`;
-  let data = await executeSQL(sql);
-  
-  res.render('home', {cuisines : data});
+  let cuisines = await executeSQL(sql);
+  res.render('home', { cuisines: cuisines });
+});
+
+app.get('/homeSearch', async (req, res) => {
+  // Grabbing the info from the form in home page
+  let keyword = req.query.keyword;
+  let cuisineType = req.query.cuisine;
+  let mealTime = req.query.time;
+
+  if (mealTime == undefined) {
+    mealTime = 'lunch';
+  }
+
+  // puting that info into the api url and turning the response into json
+  let apiCall = `https://api.edamam.com/api/recipes/v2?type=public&q=${keyword}&app_id=${process.env.API_ID}&app_key=${process.env.API_KEY}&cuisineType=${cuisineType}&mealType=${mealTime}`;
+  let response = await fetch(apiCall);
+  let recipes = await response.json();
+
+  // grabbing the cuisines from the database
+  let sql = `Select * from cuisines`;
+  let cuisines = await executeSQL(sql);
+
+  // passing the data onto the home page from the db and api call
+  res.render('home', { cuisines: cuisines, recipes: recipes });
 });
 
 app.get('/saved', (req, res) => {
@@ -137,27 +156,26 @@ app.get('/api', async (req, res) => {
   res.render('apiTest', { recipeInfo: recipeInfo });
 });
 
-async function executeSQL(sql, params){
-  return new Promise (function (resolve, reject) {
-  pool.query(sql, params, function (err, rows, fields) {
-  if (err) throw err;
-     resolve(rows);
+async function executeSQL(sql, params) {
+  return new Promise(function (resolve, reject) {
+    pool.query(sql, params, function (err, rows, fields) {
+      if (err) throw err;
+      resolve(rows);
+    });
   });
+} //executeSQL
+//values in red must be updated
+function dbConnection() {
+  const pool = mysql.createPool({
+    connectionLimit: 100,
+    host: 'h1use0ulyws4lqr1.cbetxkdyhwsb.us-east-1.rds.amazonaws.com',
+    user: 'e7lupxcx8d4xn9t6',
+    password: 'cay2rck66m43hje5',
+    database: 'ejes6a2uewb3lyp4',
   });
-  }//executeSQL
-  //values in red must be updated
-  function dbConnection(){
-     const pool  = mysql.createPool({
-        connectionLimit: 100,
-        host: "cwe1u6tjijexv3r6.cbetxkdyhwsb.us-east-1.rds.amazonaws.com",
-        user: "nstwa3r82fbmw3bw",
-        password: "z26ca8fd64u3m9xb",
-        database: "x1akpmooqm7zd50u"
-     }); 
-  
-     return pool;
-  
-  } //dbConnection
+
+  return pool;
+} //dbConnection
 
 app.listen(port, () => {
   console.log(`Example app listening on port http://localhost:${port}`);
