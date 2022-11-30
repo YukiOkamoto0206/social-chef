@@ -36,7 +36,7 @@ const isAuthenticated = (req, res, next) => {
 
 app.get('/', (req, res) => {
   if (req.session.userId != undefined) {
-    res.render('home');
+    res.redirect('/home');
   } else {
     res.render('login');
   }
@@ -56,19 +56,12 @@ app.post('/login', async (req, res) => {
     passwordHash = rows[0].pWord;
   }
 
-  if (sql.pWord == password) {
-    req.session.authenticated = true;
-    res.render('home');
+  const match = await bcrypt.compare(password, passwordHash);
+  if (match) {
+    req.session.userId = rows[0].userID;
+    res.redirect('/home');
   } else {
-    res.render('login', { error: 'Wrong Credentials!' });
-
-    const match = await bcrypt.compare(password, passwordHash);
-    if (match) {
-      req.session.userId = rows[0].userID;
-      res.render('home');
-    } else {
-      res.redirect('/');
-    }
+    res.redirect('/');
   }
 });
 
