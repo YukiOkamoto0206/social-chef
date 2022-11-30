@@ -45,6 +45,10 @@
           </div>
           <button>Register</button>
         </form>
+
+        <% if (error != undefined) { %>
+          <%= error %>
+        <% } %>
         <p class="top-and-bottom" >Oh You do Have an Account? Don't Worry <br> <a href="/">Click Here</a>  to Log In</p>
     </div>
   </main>
