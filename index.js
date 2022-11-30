@@ -111,7 +111,23 @@ app.get('/settings', isAuthenticated, (req, res) => {
 });
 
 // [add/update settings] (POST /userInfo)
-app.post('/update', isAuthenticated, (req, res) => {
+app.post('/update', isAuthenticated, async (req, res) => {
+  let userId = req.body.userId;
+  let username = req.body.username;
+  let password = req.body.password;
+  let firstName = req.body.firstName;
+  let lastName = req.body.lastName;
+  let country = req.body.country;
+  let sql = `UPDATE users
+              SET 
+              username = ?,
+              pWord = ?,
+              firstName = ?,
+              lastName = ?,
+              country = ?
+              WHERE userId = ?`;
+  let params = [username, password, firstName, lastName, country, userId];
+  let rows = await executeSQL(sql, params);
   res.redirect('userInfo');
 });
 
@@ -121,16 +137,29 @@ app.get('/newRecipe', isAuthenticated, (req, res) => {
 });
 
 // [add recipes] in your own (use form from scrach without api) (POST /recipe)
+app.post('/addRecipe', isAuthenticated, (req, res) => {
+  res.redirect('recipe');
+});
 
 // [save recipes] from api (GET /savedRecipes)
+app.get('/saveRecipe', isAuthenticated, (req, res) => {
+  res.redirect('savedRecipes');
+});
 
 // [new recipe] has input form (GET /recipe)
 app.get('/addRecipe', isAuthenticated, (req, res) => {
   res.render('newRecipe');
 });
-// [add recipes] in your own (use form from scrach without api) (POST /recipe)
 
 // [delete recipes] (GET /recipe)
+app.get('/deleteRecipe', isAuthenticated, async (req, res) => {
+  let recipeId = req.query.recipeId;
+  let userId = req.query.userId;
+  let sql = `DELETE FROM recipes
+             WHERE recipeId = ? AND userId = ?`
+  let rows = await executeSQL(sql, [recipeId, userId]);
+  res.redirect('settings');
+});
 
 // [logout] (GET /login)
 app.get('/logout', (req, res) => {
