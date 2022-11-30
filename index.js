@@ -11,8 +11,7 @@ app.use(express.static('public'));
 app.use(express.urlencoded({ extended: true }));
 
 // for environment file
-const dotenv = require('dotenv');
-dotenv.config();
+require('dotenv').config();
 
 app.set('trust proxy', 1); // trust first proxy
 const option = {
@@ -26,7 +25,7 @@ app.use(express.json());
 
 // middleware function
 const isAuthenticated = (req, res, next) => {
-  if (req.session.authenticated) {
+  if (req.session.userId != undefined) {
     next();
   } else {
     res.redirect('/');
@@ -34,7 +33,7 @@ const isAuthenticated = (req, res, next) => {
 };
 
 app.get('/', (req, res) => {
-  if (req.session.authenticated) {
+  if (req.session.userId != undefined) {
     res.render('home');
   } else {
     res.render('login');
@@ -46,7 +45,7 @@ app.post('/login', async (req, res) => {
   const username = req.body.username;
   const password = req.body.password;
   let passwordHash = '';
-  const sql = ` SELECT pWord
+  const sql = ` SELECT userID, pWord
                 FROM users
                 WHERE username = ?`;
   const rows = await executeSQL(sql, username);
@@ -57,7 +56,7 @@ app.post('/login', async (req, res) => {
 
   const match = await bcrypt.compare(password, passwordHash);
   if (match) {
-    req.session.authenticated = true;
+    req.session.userId = rows[0].userID;
     res.render('home');
   } else {
     res.redirect('/');
