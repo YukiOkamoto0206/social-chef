@@ -13,9 +13,9 @@ nav {
   text-align: center;
   left: 0;
   top: 0;
+  bottom: 0;
   z-index: 1;
   background-color: #fbe8d6;
-  height: 100%;
   width: 230px;
   box-shadow: rgba(0, 0, 0, 0.25) 0px 0.0625em 0.0625em, rgba(0, 0, 0, 0.25) 0px 0.125em 0.5em, rgba(255, 255, 255, 0.1) 0px 0px 0px 1px inset;
 }
@@ -101,18 +101,19 @@ nav {
 }
 
 .slip-img {
-  width: 30%;
-  margin-right: 1rem;
+  width: 20%;
+  margin-right: 0.3rem;
 
 }
 
 .slip-body {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: 180px 180px 180px;
   grid-template-rows: 70px 70px 70px;
+  
   margin-top: 2rem;
   margin-bottom: 2rem;
-  column-gap: 0.5rem;
+  column-gap: 0.2rem;
 }
 
 .slip-body p {
@@ -139,7 +140,7 @@ nav {
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   border: none;
   color: white;
-  border-radius: 5px;
+  border-radius: 10px;
   cursor: pointer;
 }
 
@@ -149,6 +150,13 @@ nav {
 
 .info-button {
   background-color: #CBAC70;
+  transition: 0.4s;
+  
+}
+
+.info-button:hover {
+  background-color: #a6833b;
+  border-radius: 0;
 }
 
 .delete-button {
