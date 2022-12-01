@@ -1,12 +1,17 @@
 const saveRecipeToAccount = (id, name, cal, yield, time, cui, img, url) => {
+  // IF YOU GUYS HAVE A BETTER WAY OF ORGANIZING THIS CODE PLEASE DO!
+
+  // CREATING A FORM IN JS TO STORE THE DATA TO SEND TO THE ROUTE
   let saveForm = document.createElement('form');
+  // THIS IS TO STORE THE FORM IN A DIV OR ELSE AN ERROR IS THROWN
   let formDiv = document.getElementById('form-box');
   formDiv.innerHTML = '';
 
+  // THE ATTRIBUTES TO HAVE THE FORM DO THE CORRECT METHODS AND ACTIONS
   saveForm.setAttribute('method', 'post');
   saveForm.setAttribute('action', '/saveRecipe');
 
-  // Attributes that the form needs to store it into db
+  // CREATING THE INPUTS AND THEIR RESPECTIVE TYPES, ASWELL AS THE DATA WITHIN THEM
   let recipeName = document.createElement('input');
   recipeName.setAttribute('type', 'text');
   recipeName.setAttribute('name', 'name');
@@ -44,7 +49,9 @@ const saveRecipeToAccount = (id, name, cal, yield, time, cui, img, url) => {
 
   let button = document.createElement('button');
   saveForm.appendChild(button);
+  // -----------------------------------------------------
 
+  // PUTTING ALL THE INPUTS INTO THE FORM
   saveForm.appendChild(recipeName);
   saveForm.appendChild(recipeCalories);
   saveForm.appendChild(recipeServings);
@@ -53,7 +60,9 @@ const saveRecipeToAccount = (id, name, cal, yield, time, cui, img, url) => {
   saveForm.appendChild(recipeLink);
   saveForm.appendChild(recipeImg);
 
+  // CONNECTING THE FORM TO AN INVISIBLE DIV, ELSE IT DOESNT WORK PROPERLY
   formDiv.appendChild(saveForm);
   formDiv.style.display = 'none';
+  // SUBMIT THE FORM TO THE ROUTE WITH DATA INSIDE
   saveForm.submit();
 };
