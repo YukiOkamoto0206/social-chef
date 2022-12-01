@@ -1,22 +1,102 @@
 <%- include("components/header.ejs") %>
 
-<!-- TITLE OF THE PAGE -->
-<title>Social Chef - Add Recipe </title>
+  <!-- TITLE OF THE PAGE -->
+  <title>Social Chef - Add Recipe </title>
 
-<!-- FONT USED FOR THE PAGE (RETRIVED FROM GOOGLE FONTS) -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Heebo&family=Nunito:wght@200&display=swap" rel="stylesheet">
-<script src="https://kit.fontawesome.com/20718ccc33.js" crossorigin="anonymous" defer></script>
+  <!-- FONT USED FOR THE PAGE (RETRIVED FROM GOOGLE FONTS) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Heebo&family=Nunito:wght@200&display=swap" rel="stylesheet">
+  <script src="https://kit.fontawesome.com/20718ccc33.js" crossorigin="anonymous" defer></script>
 
-<!-- CSS UTILIZED BY THIS PAGE -->
-<link rel="stylesheet" href="/css/general.css" type="text/css" />
+  <!-- CSS UTILIZED BY THIS PAGE -->
+  <link rel="stylesheet" href="/css/general.css" type="text/css" />
+  <link rel="stylesheet" href="/css/home.css" type="text/css" />
 
-<body>
-
-  <div class="trim"></div>
-
+  <body>
 
 
-</body>
-</html>
+    <div class="trim"></div>
+    <nav>
+      <section class="nav-header">
+        <h1>Welcome <br> User!</h1>
+      </section>
+
+      <section class="nav-body">
+        <div class="body-row "> <i class="fa-sharp fa-solid fa-house"></i><a href="/home">Home</a> </div>
+        <div class="body-row"><i class="fa-solid fa-bookmark"></i><a href="/saved">Saved</a></div>
+        <div class="body-row active"><i class="fa-solid fa-plus"></i><a href="">Add Recipe</a></div>
+        <div class="body-row"><i class="fa-solid fa-gear"></i><a href="/settings">Info</a></div>
+      </section>
+
+      <section class="nav-footer">
+        <div class="body-row"><i class="fa-solid fa-right-from-bracket"></i><a href="/logout">Logout</a></div>
+      </section>
+    </nav>
+
+    <main>
+      <section class="input-container">
+        <h1>Add Your Own Recipe</h1>
+        <form action="/addRecipe" method="POST">
+          <div class="input-row" id="first">
+            <label for="">Recipe Name</label>
+            <input class="key-text" type="text" name="name" placeholder="ex: Chicken" required>
+          </div>
+
+          <div class="input-row">
+            <label for="">Calories</label>
+            <input class="key-text" type="number" name="calories" placeholder="ex: 3004.2" required>
+          </div>
+
+          <div class="input-row">
+            <label for="">Serving Size</label>
+            <input class="key-text" type="number" name="servingSize" placeholder="ex: 4" required>
+          </div>
+
+          <div class="input-row">
+            <label for="">Cuisine</label>
+            <select class="cuisine-input" name="cuisine" id="cars" required>
+              <% for (let i=0; i < cuisines.length; i++) { %>
+                <option value="<%=cuisines[i].country%>">
+                  <%=cuisines[i].country %>
+                </option>
+                <% } %>
+            </select>
+          </div>
+
+          <div class="input-row">
+            <label for="">Breakfast</label>
+            <input id="meal-time" value="breakfast" type="radio" name="time">
+          </div>
+
+          <div class="input-row">
+            <label for="">Lunch</label>
+            <input id="meal-time" value="lunch" type="radio" name="time">
+          </div>
+
+          <div class="input-row">
+            <label for="">Dinner</label>
+            <input id="meal-time" value="dinner" type="radio" name="time">
+          </div>
+
+          <div class="input-row">
+            <label for="">Recipe Url</label>
+            <input class="key-text" type="url" name="url" placeholder="Enter Url Here">
+          </div>
+
+          <div class="input-row">
+            <label for="">Image Url</label>
+            <input class="key-text" type="url" name="img" placeholder="Enter Url Here">
+          </div>
+
+          <button>Add</button>
+        </form>
+      </section>
+
+    </main>
+
+
+
+  </body>
+
+  </html>

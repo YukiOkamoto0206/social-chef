@@ -11,7 +11,7 @@
   <!-- CSS UTILIZED BY THIS PAGE -->
   <link rel="stylesheet" href="/css/general.css" type="text/css" />
   <link rel="stylesheet" href="/css/home.css" type="text/css" />
-  
+
   </head>
 
   <body>
@@ -25,6 +25,7 @@
       <section class="nav-body">
         <div class="body-row active"> <i class="fa-sharp fa-solid fa-house"></i><a href="">Home</a> </div>
         <div class="body-row"><i class="fa-solid fa-bookmark"></i><a href="/saved">Saved</a></div>
+        <div class="body-row"><i class="fa-solid fa-plus"></i><a href="/newRecipe">Add Recipe</a></div>
         <div class="body-row"><i class="fa-solid fa-gear"></i><a href="/settings">Info</a></div>
       </section>
 
@@ -44,14 +45,19 @@
             <img src="<%= daily.hits[0].recipe.image %>" alt="" srcset="">
           </div>
           <div class="slip-body">
-            <p>Name : <%= daily.hits[0].recipe.label %></p>
-            <p>Calories : <%= parseFloat(daily.hits[0].recipe.calories).toFixed(2) %> </p>
-            <p>Servings : <%= daily.hits[0].recipe.yield %> </p>
-            <p>Time : <%= daily.hits[0].recipe.mealType[0] %> </p>
-            <p>Cuisine : <%= daily.hits[0].recipe.cuisineType[0] %></p>
+            <p>Name : <%= daily.hits[0].recipe.label %>
+            </p>
+            <p>Calories : <%= parseFloat(daily.hits[0].recipe.calories).toFixed(2) %>
+            </p>
+            <p>Servings : <%= daily.hits[0].recipe.yield %>
+            </p>
+            <p>Time : <%= daily.hits[0].recipe.mealType[0] %>
+            </p>
+            <p>Cuisine : <%= daily.hits[0].recipe.cuisineType[0] %>
+            </p>
           </div>
           <div class="slip-util">
-           <a href="<%= daily.hits[0].recipe.url %>" target="_blank"><button class="info-button">Info</button></a> 
+            <a href="<%= daily.hits[0].recipe.url %>" target="_blank"><button class="info-button">Info</button></a>
             <button class="save-button">Save</button>
           </div>
         </div>
@@ -96,54 +102,66 @@
         </form>
       </section>
 
-      <% if(typeof(recipes) != "undefined")  { %>
+      <% if(typeof(recipes) !="undefined" ) { %>
 
-        <%  if (recipes.hits.length > 10)  { %>
-          <% for (i = 0; i < 5; i++)  { %>
+        <% if (recipes.hits.length> 10) { %>
+          <% for (i=0; i < 5; i++) { %>
             <div class="slip">
               <div class="slip-img">
                 <img src="<%= recipes.hits[i].recipe.image %>" alt="" srcset="">
               </div>
               <div class="slip-body">
-                <p>Name : <%= recipes.hits[i].recipe.label %></p>
-                <p>Calories : <%= parseFloat(recipes.hits[i].recipe.calories).toFixed(2) %> </p>
-                <p>Servings : <%= recipes.hits[i].recipe.yield %> </p>
-                <p>Time : <%= recipes.hits[i].recipe.mealType[0] %> </p>
-                <p>Cuisine : <%= recipes.hits[i].recipe.cuisineType[0] %></p>
+                <p>Name : <%= recipes.hits[i].recipe.label %>
+                </p>
+                <p>Calories : <%= parseFloat(recipes.hits[i].recipe.calories).toFixed(2) %>
+                </p>
+                <p>Servings : <%= recipes.hits[i].recipe.yield %>
+                </p>
+                <p>Time : <%= recipes.hits[i].recipe.mealType[0] %>
+                </p>
+                <p>Cuisine : <%= recipes.hits[i].recipe.cuisineType[0] %>
+                </p>
               </div>
               <div class="slip-util">
-               <a href="<%= recipes.hits[i].recipe.url %>" target="_blank"><button class="info-button">Info</button></a> 
-                <button   id="<%= i %>" class="save-button" onclick="saveRecipeToAccount(this.id)">Save</button>
+                <a href="<%= recipes.hits[i].recipe.url %>" target="_blank"><button
+                    class="info-button">Info</button></a>
+                <button id="<%= i %>" class="save-button" onclick="saveRecipeToAccount(this.id)">Save</button>
               </div>
             </div>
-          <% } %>
-        <% } else { %>
-          <% for (i = 0; i < recipes.hits.length; i++)  { %>
-            <div class="slip">
-              <div class="slip-img">
-                <img src="<%= recipes.hits[i].recipe.image %>" alt="" srcset="">
-              </div>
-              <div class="slip-body">
-                <p>Name : <%= recipes.hits[i].recipe.label %></p>
-                <p>Calories : <%= parseFloat(recipes.hits[i].recipe.calories).toFixed(2) %> </p>
-                <p>Servings : <%= recipes.hits[i].recipe.yield %> </p>
-                <p>Time : <%= recipes.hits[i].recipe.mealType[0] %> </p>
-                <p>Cuisine : <%= recipes.hits[i].recipe.cuisineType[0] %></p>
-              </div>
-              <div class="slip-util">
-               <a href="<%= recipes.hits[i].recipe.url %>" target="_blank"><button class="info-button">Info</button></a> 
-                <button  id="<%= i %>" class="save-button"  onclick="saveRecipeToAccount(this.id)">Save</button>
-              </div>
-            </div>
-          <% } %>
-        <% } %>
-      <% } %>
+            <% } %>
+              <% } else { %>
+                <% for (i=0; i < recipes.hits.length; i++) { %>
+                  <div class="slip">
+                    <div class="slip-img">
+                      <img src="<%= recipes.hits[i].recipe.image %>" alt="" srcset="">
+                    </div>
+                    <div class="slip-body">
+                      <p>Name : <%= recipes.hits[i].recipe.label %>
+                      </p>
+                      <p>Calories : <%= parseFloat(recipes.hits[i].recipe.calories).toFixed(2) %>
+                      </p>
+                      <p>Servings : <%= recipes.hits[i].recipe.yield %>
+                      </p>
+                      <p>Time : <%= recipes.hits[i].recipe.mealType[0] %>
+                      </p>
+                      <p>Cuisine : <%= recipes.hits[i].recipe.cuisineType[0] %>
+                      </p>
+                    </div>
+                    <div class="slip-util">
+                      <a href="<%= recipes.hits[i].recipe.url %>" target="_blank"><button
+                          class="info-button">Info</button></a>
+                      <button id="<%= i %>" class="save-button" onclick="saveRecipeToAccount(this.id)">Save</button>
+                    </div>
+                  </div>
+                  <% } %>
+                    <% } %>
+                      <% } %>
 
-      <script>
-        const saveRecipeToAccount = (id) => {
-          console.log(id);
-        }
-      </script>
+                        <script>
+                          const saveRecipeToAccount = (id) => {
+                            console.log(id);
+                          }
+                        </script>
 
     </main>
   </body>

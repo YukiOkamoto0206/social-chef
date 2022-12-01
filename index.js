@@ -175,18 +175,41 @@ app.post('/update', isAuthenticated, async (req, res) => {
 });
 
 // [new recipe] has input form (GET /recipe)
-app.get('/newRecipe', isAuthenticated, (req, res) => {
-  res.redirect('recipe');
+app.get('/newRecipe', isAuthenticated, async (req, res) => {
+  let sql = `Select * from cuisines`;
+  let cuisines = await executeSQL(sql);
+  res.render('newRecipe', {cuisines: cuisines});
 });
 
 // [add recipes] in your own (use form from scrach without api) (POST /recipe)
-app.post('/addRecipe', isAuthenticated, (req, res) => {
-  res.redirect('recipe');
+app.post('/addRecipe', isAuthenticated, async (req, res) => {
+  let name = req.body.name;
+  let calories = req.body.calories;
+  let servingSize = req.body.servingSize;
+  let cuisine = req.body.cuisine;
+  let mealTime = req.body.time;
+  let url = req.body.url;
+  let img = req.body.img;
+  let userId = req.session.userId
+  let sql = `INSERT INTO recipes
+             (user_id, 
+              recipe_name, 
+              cuisine, 
+              calories, 
+              serving_size, 
+              meal_time, 
+              recipe_link, 
+              image_link)
+             VALUES
+             (?,?,?,?,?,?,?,?)`;
+  let params = [userId, name, cuisine, calories, servingSize, mealTime, url, img];
+  let rows = await executeSQL(sql, params);
+  res.redirect('newRecipe');
 });
 
 // [save recipes] from api (GET /savedRecipes)
 app.get('/saveRecipe', isAuthenticated, (req, res) => {
-  res.redirect('savedRecipes');
+  res.redirect('saved');
 });
 
 // [new recipe] has input form (GET /recipe)
@@ -252,9 +275,6 @@ async function executeSQL(sql, params) {
 function dbConnection() {
   const pool = mysql.createPool({
     connectionLimit: 10,
-    connectTimeout  : 60 * 60 * 1000,
-    acquireTimeout  : 60 * 60 * 1000,
-    timeout         : 60 * 60 * 1000,
     host: 'h1use0ulyws4lqr1.cbetxkdyhwsb.us-east-1.rds.amazonaws.com',
     user: 'e7lupxcx8d4xn9t6',
     password: 'cay2rck66m43hje5',
