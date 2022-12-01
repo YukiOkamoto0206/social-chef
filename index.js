@@ -109,11 +109,15 @@ app.get('/home', isAuthenticated, async (req, res) => {
   let sql = `Select * from cuisines`;
   let cuisines = await executeSQL(sql);
 
+  let userID = req.session.userId;
+  sql = `select firstName from users where userID = ?`;
+  let fName = await executeSQL(sql, userID);
+
   let dailyCall = `https://api.edamam.com/api/recipes/v2?type=public&q=chicken&app_id=${process.env.API_ID}&app_key=${process.env.API_KEY}`;
   let response = await fetch(dailyCall);
   let daily = await response.json();
 
-  res.render('home', { cuisines: cuisines, daily: daily });
+  res.render('home', { cuisines: cuisines, daily: daily, firstN: fName });
 });
 
 app.get('/homeSearch', isAuthenticated, async (req, res) => {
@@ -138,8 +142,17 @@ app.get('/homeSearch', isAuthenticated, async (req, res) => {
   let sql = `Select * from cuisines`;
   let cuisines = await executeSQL(sql);
 
+  let userID = req.session.userId;
+  sql = `select firstName from users where userID = ?`;
+  let fName = await executeSQL(sql, userID);
+
   // passing the data onto the home page from the db and api call
-  res.render('home', { cuisines: cuisines, recipes: recipes, daily: daily });
+  res.render('home', {
+    cuisines: cuisines,
+    recipes: recipes,
+    daily: daily,
+    firstN: fName,
+  });
 });
 
 app.get('/saved', isAuthenticated, (req, res) => {
