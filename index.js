@@ -199,23 +199,37 @@ app.post('/addRecipe', isAuthenticated, (req, res) => {
 
 // [save recipes] from api (GET /savedRecipes)
 app.post('/saveRecipe', isAuthenticated, async (req, res) => {
-  let name = req.body.name;
-  let calories = req.body.calories;
-  let yield = req.body.servings;
-  let time = req.body.mealTime;
-  let cuisine = req.body.cuisine;
-  let recLink = req.body.link;
-  let img = req.body.img;
-
-  let userId = req.session.userId;
-
+  // SQL QUERY TO INSERT DATA INTO DATABASE
   const sql = `INSERT INTO recipes 
   (user_Id, recipe_name, cuisine, calories, serving_size, meal_time, recipe_link, image_link)
   VALUES (?, ?, ?, ?, ?, ?, ?, ?);`;
 
-  let params = [userId, name, cuisine, calories, yield, time, recLink, img];
-  let rows = await executeSQL(sql, params);
+  // RECIPE OBJECT WITH THE DATA PASSED THROUGH
+  let recipe = {
+    userId: req.session.userId,
+    name: req.body.name,
+    calories: req.body.calories,
+    yield: req.body.servings,
+    time: req.body.mealTime,
+    cuisine: req.body.cuisine,
+    recLink: req.body.link,
+    img: req.body.img,
+  };
 
+  // ARRAY TO PASS THOSE VALUES INTO SQL QUERY TO AVOID INJECTION
+  let params = [
+    recipe.userId,
+    recipe.name,
+    recipe.cuisine,
+    recipe.calories,
+    recipe.yield,
+    recipe.time,
+    recipe.recLink,
+    recipe.img,
+  ];
+
+  // INSERT AND REDIRECT TO HOME
+  let rows = await executeSQL(sql, params);
   res.redirect('/home');
 });
 
