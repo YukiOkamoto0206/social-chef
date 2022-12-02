@@ -11,8 +11,8 @@
 }
 
 .input-container {
-  margin-top: 5rem;
-}
+  margin: 6rem 10% 6rem 10%;
+  }
 
 
 #meal-time {
@@ -20,11 +20,16 @@
   border: white;
 }
 
+.input-container h1 {
+  margin-top: 4rem;
+}
+
 form {
   display: flex;
   flex-direction: row;
   justify-content: center;
   column-gap: 2rem;
+  margin-bottom: 5rem;
 }
 
 label {

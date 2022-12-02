@@ -72,9 +72,9 @@ app.post('/create', async (req, res) => {
   let firstName = req.body.firstName;
   let lastName = req.body.lastName;
   let country = req.body.country;
-  let retype = req.body.re-password;
+  let retype = req.body.re_password;
 
-  if (password != retype){
+  if (password != retype) {
     res.render('create', { error: 'Passwords do not match!' });
   }
 
@@ -105,18 +105,22 @@ app.get('/create', (req, res) => {
 });
 
 // [home page] (GET /home)
-app.get('/home', async (req, res) => {
+app.get('/home', isAuthenticated, async (req, res) => {
   let sql = `Select * from cuisines`;
   let cuisines = await executeSQL(sql);
+
+  let userID = req.session.userId;
+  sql = `select firstName from users where userID = ?`;
+  let fName = await executeSQL(sql, userID);
 
   let dailyCall = `https://api.edamam.com/api/recipes/v2?type=public&q=chicken&app_id=${process.env.API_ID}&app_key=${process.env.API_KEY}`;
   let response = await fetch(dailyCall);
   let daily = await response.json();
 
-  res.render('home', { cuisines: cuisines, daily: daily });
+  res.render('home', { cuisines: cuisines, daily: daily, firstN: fName });
 });
 
-app.get('/homeSearch', async (req, res) => {
+app.get('/homeSearch', isAuthenticated, async (req, res) => {
   // Grabbing the info from the form in home page
   let keyword = req.query.keyword;
   let cuisineType = req.query.cuisine;
@@ -138,8 +142,17 @@ app.get('/homeSearch', async (req, res) => {
   let sql = `Select * from cuisines`;
   let cuisines = await executeSQL(sql);
 
+  let userID = req.session.userId;
+  sql = `select firstName from users where userID = ?`;
+  let fName = await executeSQL(sql, userID);
+
   // passing the data onto the home page from the db and api call
-  res.render('home', { cuisines: cuisines, recipes: recipes, daily: daily });
+  res.render('home', {
+    cuisines: cuisines,
+    recipes: recipes,
+    daily: daily,
+    firstN: fName,
+  });
 });
 
 app.get('/saved', isAuthenticated, (req, res) => {
@@ -148,9 +161,9 @@ app.get('/saved', isAuthenticated, (req, res) => {
 
 // [settings] (GET /userInfo)
 app.get('/settings', isAuthenticated, async (req, res) => {
-  let sql = `SELECT * FROM users`
+  let sql = `SELECT * FROM users`;
   let data = await executeSQL(sql);
-  res.render('settings', {"data": data});
+  res.render('settings', { data: data });
 });
 
 // [add/update settings] (POST /userInfo)
@@ -185,8 +198,39 @@ app.post('/addRecipe', isAuthenticated, (req, res) => {
 });
 
 // [save recipes] from api (GET /savedRecipes)
-app.get('/saveRecipe', isAuthenticated, (req, res) => {
-  res.redirect('savedRecipes');
+app.post('/saveRecipe', isAuthenticated, async (req, res) => {
+  // SQL QUERY TO INSERT DATA INTO DATABASE
+  const sql = `INSERT INTO recipes 
+  (user_Id, recipe_name, cuisine, calories, serving_size, meal_time, recipe_link, image_link)
+  VALUES (?, ?, ?, ?, ?, ?, ?, ?);`;
+
+  // RECIPE OBJECT WITH THE DATA PASSED THROUGH
+  let recipe = {
+    userId: req.session.userId,
+    name: req.body.name,
+    calories: req.body.calories,
+    yield: req.body.servings,
+    time: req.body.mealTime,
+    cuisine: req.body.cuisine,
+    recLink: req.body.link,
+    img: req.body.img,
+  };
+
+  // ARRAY TO PASS THOSE VALUES INTO SQL QUERY TO AVOID INJECTION
+  let params = [
+    recipe.userId,
+    recipe.name,
+    recipe.cuisine,
+    recipe.calories,
+    recipe.yield,
+    recipe.time,
+    recipe.recLink,
+    recipe.img,
+  ];
+
+  // INSERT AND REDIRECT TO HOME
+  let rows = await executeSQL(sql, params);
+  res.redirect('/home');
 });
 
 // [new recipe] has input form (GET /recipe)
@@ -252,13 +296,13 @@ async function executeSQL(sql, params) {
 function dbConnection() {
   const pool = mysql.createPool({
     connectionLimit: 10,
-    connectTimeout  : 60 * 60 * 1000,
-    acquireTimeout  : 60 * 60 * 1000,
-    timeout         : 60 * 60 * 1000,
+    connectTimeout: 60 * 60 * 1000,
+    acquireTimeout: 60 * 60 * 1000,
+    timeout: 60 * 60 * 1000,
     host: 'h1use0ulyws4lqr1.cbetxkdyhwsb.us-east-1.rds.amazonaws.com',
     user: 'e7lupxcx8d4xn9t6',
     password: 'cay2rck66m43hje5',
-    database: 'ejes6a2uewb3lyp4'
+    database: 'ejes6a2uewb3lyp4',
   });
 
   return pool;
