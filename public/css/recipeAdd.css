@@ -47,6 +47,7 @@ form button:hover {
   background-color: white;
   border: 2px solid #535546;
   color: #535546;
+  border-radius: 20px;
 }
 
 .radio-box {
