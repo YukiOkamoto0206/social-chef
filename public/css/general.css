@@ -9,7 +9,7 @@ body {
 nav {
   display: flex;
   flex-direction: column;
-  position: absolute;
+  position: fixed;
   text-align: center;
   left: 0;
   top: 0;
@@ -140,12 +140,19 @@ nav {
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   border: none;
   color: white;
-  border-radius: 10px;
+  border-radius: 5px;
   cursor: pointer;
 }
 
 .save-button {
   background-color: #535546;
+  transition: 0.4s;
+}
+
+.save-button:hover {
+  background-color: #737567;
+  border-radius: 0;
+  border-radius: 10px;
 }
 
 .info-button {
@@ -155,10 +162,18 @@ nav {
 }
 
 .info-button:hover {
-  background-color: #a6833b;
+  background-color: #f7d99d;
   border-radius: 0;
+  border-radius: 10px;
 }
 
 .delete-button {
   background-color: #8e4343;
+  transition: 0.4s;
+}
+
+.delete-button:hover {
+  background-color: #8e4343;
+  border-radius: 0;
+  border-radius: 10px;
 }
