@@ -188,13 +188,36 @@ app.post('/update', isAuthenticated, async (req, res) => {
 });
 
 // [new recipe] has input form (GET /recipe)
-app.get('/newRecipe', isAuthenticated, (req, res) => {
-  res.redirect('recipe');
+app.get('/newRecipe', isAuthenticated, async (req, res) => {
+  let sql = `Select * from cuisines`;
+  let cuisines = await executeSQL(sql);
+  res.render('newRecipe', {cuisines: cuisines});
 });
 
 // [add recipes] in your own (use form from scrach without api) (POST /recipe)
-app.post('/addRecipe', isAuthenticated, (req, res) => {
-  res.redirect('recipe');
+app.post('/addRecipe', isAuthenticated, async (req, res) => {
+  let name = req.body.name;
+  let calories = req.body.calories;
+  let servingSize = req.body.servingSize;
+  let cuisine = req.body.cuisine;
+  let mealTime = req.body.time;
+  let url = req.body.url;
+  let img = req.body.img;
+  let userId = req.session.userId
+  let sql = `INSERT INTO recipes
+             (user_id, 
+              recipe_name, 
+              cuisine, 
+              calories, 
+              serving_size, 
+              meal_time, 
+              recipe_link, 
+              image_link)
+             VALUES
+             (?,?,?,?,?,?,?,?)`;
+  let params = [userId, name, cuisine, calories, servingSize, mealTime, url, img];
+  let rows = await executeSQL(sql, params);
+  res.redirect('newRecipe');
 });
 
 // [save recipes] from api (GET /savedRecipes)
