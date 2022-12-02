@@ -30,11 +30,23 @@
         <div class="body-row"><i class="fa-solid fa-right-from-bracket"></i><a href="/logout">Logout</a></div>
       </section>
 
-      <form method="POST" action="/update">
-        <button> Update </button>
-      </form>
-
     </nav>
+
+    <form method="POST" action="/settings">
+      <div>
+        username: <input type="text" name="username" value="<%= data.username %> ">
+      </div>
+      <div>
+        first name: <input type="text" name="firstName" value="<%= data.firstName %> ">
+      </div>
+      <div>
+        last name: <input type="text" name="lastName" value="<%= data.lastName %> ">
+      </div>
+      <div>
+        country: <input type="text" name="country" value="<%= data.country %> ">
+      </div>
+      <button> Update </button>
+    </form>
 
 
   </body>

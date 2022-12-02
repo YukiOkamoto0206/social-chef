@@ -161,30 +161,30 @@ app.get('/saved', isAuthenticated, (req, res) => {
 
 // [settings] (GET /userInfo)
 app.get('/settings', isAuthenticated, async (req, res) => {
-  let sql = `SELECT * FROM users`;
-  let data = await executeSQL(sql);
-  res.render('settings', { data: data });
+  let sql = ` SELECT * 
+              FROM users
+              WHERE userId = ?`;
+  let params = req.session.userId;
+  let data = await executeSQL(sql, [params]);
+  res.render('settings', { data: data[0] });
 });
 
 // [add/update settings] (POST /userInfo)
-app.post('/update', isAuthenticated, async (req, res) => {
-  let userId = req.body.userId;
+app.post('/settings', isAuthenticated, async (req, res) => {
   let username = req.body.username;
-  let password = req.body.password;
   let firstName = req.body.firstName;
   let lastName = req.body.lastName;
   let country = req.body.country;
   let sql = `UPDATE users
               SET 
               username = ?,
-              pWord = ?,
               firstName = ?,
               lastName = ?,
               country = ?
               WHERE userId = ?`;
-  let params = [username, password, firstName, lastName, country, userId];
-  let rows = await executeSQL(sql, params);
-  res.redirect('userInfo');
+  let params = [username, firstName, lastName, country, req.session.userId];
+  await executeSQL(sql, params);
+  res.redirect('settings');
 });
 
 // [new recipe] has input form (GET /recipe)
