@@ -32,6 +32,7 @@
 
     </nav>
 
+    <div>Update the User Information</div>
     <form method="POST" action="/settings">
       <div>
         username: <input type="text" name="username" value="<%= data.username %> ">
@@ -44,6 +45,19 @@
       </div>
       <div>
         country: <input type="text" name="country" value="<%= data.country %> ">
+      </div>
+      <button> Update </button>
+    </form>
+
+    <br></br>
+
+    <div>Update the Password</div>
+    <form method="POST" action="/password">
+      <div>
+        Old Password: <input type="password" name="old_password">
+      </div>
+      <div>
+        New Password: <input type="password" name="new_password">
       </div>
       <button> Update </button>
     </form>

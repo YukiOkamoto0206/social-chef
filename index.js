@@ -12,6 +12,7 @@ app.use(express.urlencoded({ extended: true }));
 
 const pool = dbConnection();
 const fetch = require('node-fetch');
+const e = require('express');
 // for environment file
 require('dotenv').config();
 
@@ -44,18 +45,17 @@ app.get('/', (req, res) => {
 
 // [login page] (POST /login)
 app.post('/login', async (req, res) => {
-  const username = req.body.username;
-  const password = req.body.password;
+  let username = req.body.username;
+  let password = req.body.password;
   let passwordHash = '';
   const sql = ` SELECT userID, pWord
                 FROM users
                 WHERE username = ?`;
-  const rows = await executeSQL(sql, username);
+  let rows = await executeSQL(sql, username);
 
   if (rows.length > 0) {
     passwordHash = rows[0].pWord;
   }
-
   const match = await bcrypt.compare(password, passwordHash);
   if (match) {
     req.session.userId = rows[0].userID;
@@ -184,6 +184,28 @@ app.post('/settings', isAuthenticated, async (req, res) => {
               WHERE userId = ?`;
   let params = [username, firstName, lastName, country, req.session.userId];
   await executeSQL(sql, params);
+  res.redirect('settings');
+});
+
+app.post('/password', isAuthenticated, async (req, res) => {
+  let old_password = req.body.old_password;
+  let new_password = req.body.new_password;
+  let userId = req.session.userId;
+  let sql = ` SELECT pWord
+              FROM users
+              WHERE userId = ?`;
+  let data = await executeSQL(sql, [userId]);
+  let passwordHash = data[0].pWord;
+  let match = await bcrypt.compare(old_password, passwordHash);
+  if (match) {
+    let hash = bcrypt.hashSync(new_password, 10);
+    let updateSql = ` UPDATE users
+                      SET
+                      pWord = ?
+                      WHERE userId = ?`;
+    let params = [hash, userId];
+    await executeSQL(updateSql, params);
+  }
   res.redirect('settings');
 });
 
