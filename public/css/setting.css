@@ -1,0 +1,116 @@
+.input-container {
+  max-width: 50rem;
+  min-width: 35rem;
+  margin: 0 auto;
+}
+
+main h1 {
+  color: #daa84c;
+  font-family: 'Nunito', sans-serif;
+  text-align: center;
+  font-size: 30px;
+  margin-top: 6rem;
+}
+
+form {
+  margin: 3.5rem 15% 5rem 15%;
+  padding: 3rem;
+  position: relative;
+  background-color: white;
+  border-radius: 20px;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px,
+    rgba(0, 0, 0, 0.22) 0px 10px 10px;
+}
+
+form button {
+  margin-top: 1rem;
+  background-color: #535546;
+  width: 8rem;
+  height: 34px;
+  border: none;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 2rem;
+  transition: 0.4s;
+}
+
+form button:hover {
+  background-color: white;
+  border: 2px solid #535546;
+  color: #535546;
+  border-radius: 20px;
+}
+
+.radio-box {
+  display: flex;
+  flex-direction: row;
+  margin: 0 auto 1rem 20%;
+}
+
+.input-row {
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  min-width: 10rem;
+  max-width: 15rem;
+}
+
+.input-row label {
+  margin-bottom: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.input-row input {
+  height: 24px;
+  border-left: none;
+  border-right: none;
+  border-top: none;
+}
+
+.input-row select {
+  height: 30px;
+  border-left: none;
+  border-right: none;
+  border-top: none;
+}
+
+.bottom-row {
+  margin-bottom: 4rem;
+}
+
+.radio-row label {
+  float: left;
+  padding: 0 1em 0 1em;
+  text-align: center;
+  margin-bottom: 0.4rem;
+  font-size: 0.8rem;
+}
+
+.radio-row {
+  display: flex;
+  flex-direction: column;
+}
+
+.radio-button {
+  accent-color: #535546;
+}
+
+.flex {
+  margin: auto 20% auto 20%;
+  display: flex;
+  justify-content:space-around
+}
+
+.update-pass form {
+  padding-top: 7rem;
+  padding-bottom: 7.8rem;
+}

@@ -11,9 +11,9 @@
 
   <!-- CSS UTILIZED BY THIS PAGE -->
   <link rel="stylesheet" href="/css/general.css" type="text/css" />
+  <link rel="stylesheet" href="/css/setting.css" type="text/css" />
 
   <body>
-
     <div class="trim"></div>
     <nav>
       <section class="nav-header">
@@ -31,13 +31,47 @@
         <div class="body-row"><i class="fa-solid fa-right-from-bracket"></i><a href="/logout">Logout</a></div>
       </section>
 
-      <form method="POST" action="/update">
-        <button> Update </button>
-      </form>
-
     </nav>
 
+    <main class="flex">
+      <section class="input-container">
+      <h1>Update the User Information</h1>
+      <form method="POST" action="/settings">
+        <div class="input-row" id="first">
+          <label for="">User Name</label>
+          <input class="key-text" type="text" name="username" value="<%= data.username %> ">
+        </div>
+        <div class="input-row">
+          <label for="">First Name</label>
+          <input class="key-text" type="text" name="firstName" value="<%= data.firstName %> ">
+        </div>
+        <div class="input-row">
+          <label for="">Last Name</label>
+          <input class="key-text" type="text" name="lastName" value="<%= data.lastName %> ">
+        </div>
+        <div class="input-row bottom-row">
+          <label for="">Country</label>
+          <input type="text" name="country" value="<%= data.country %> ">
+        </div>
+        <button> Update </button>
+      </form>
+      </section>
 
+      <section class="input-container update-pass">
+      <h1>Update the Password</h1>
+      <form method="POST" action="/password">
+        <div class="input-row" id="first">
+          <label for="">Old Password</label>
+          <input class="key-text" type="password" name="old_password">
+        </div>
+        <div class="input-row bottom-row">
+          <label for="">New Password</label>
+          <input class="key-text" type="password" name="new_password">
+        </div>
+        <button> Update </button>
+      </form>
+      </section>
+    </main>
   </body>
 
   </html>
