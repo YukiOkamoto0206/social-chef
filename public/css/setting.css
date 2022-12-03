@@ -65,7 +65,8 @@ form button:hover {
 }
 
 .input-row label {
-  margin-bottom: 0.4rem;
+  margin-bottom: 0.5rem;
+  margin-top: 0.5rem;
 }
 
 .input-row input {
@@ -104,5 +105,12 @@ form button:hover {
 }
 
 .flex {
+  margin: auto 20% auto 20%;
   display: flex;
+  justify-content:space-around
+}
+
+.update-pass form {
+  padding-top: 7rem;
+  padding-bottom: 7.8rem;
 }
