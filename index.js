@@ -159,7 +159,9 @@ app.get('/saved', isAuthenticated, async (req, res) => {
   let userID = req.session.userId;
   let sql = `SELECT * FROM recipes WHERE user_id = ?`
   let recipe = await executeSQL(sql, userID);
-  res.render('saved', {"recipes": recipe});
+  sql = `select firstName from users where userID = ?`;
+  let fName = await executeSQL(sql, userID);
+  res.render('saved', {"recipes": recipe,  firstN: fName});
 });
 
 // [settings] (GET /userInfo)
@@ -290,7 +292,7 @@ app.get('/UnsaveRecipe', isAuthenticated, async (req, res) => {
 
   // delete AND redirect back TO saved
   let rows = await executeSQL(sql, [userID, name]);
-  res.redirect('/saved');
+  res.render('/saved', {});
 });
 
 // [new recipe] has input form (GET /recipe)

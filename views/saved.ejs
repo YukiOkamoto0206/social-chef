@@ -17,7 +17,9 @@
     <div class="trim"></div>
     <nav>
       <section class="nav-header">
-        <h1>Welcome <br> User!</h1>
+        <h1>Welcome <br>
+          <%= firstN[0].firstName %>!
+        </h1>
       </section>
 
       <section class="nav-body">
@@ -56,8 +58,7 @@
               <div class="slip-util">
                 <a href="<%= recipes[i].image_link %>" target="_blank"><button class="info-button">Info</button></a>
                 <button id="<%=i%> %>" class="save-button"
-                  onclick="UnsaveRecipeToAccount(this.id, `<%= recipes[i].recipe_name %>`, `<%= parseFloat(recipes[i].calories).toFixed(2) %>`, `<%= recipes[i].serving_size %>`,
-                `<%= recipes[i].meal_time %>`, `<%= recipes[i].cuisineType[0] %>`, `<%= recipes.hits[i].recipe.image %>`,`<%= recipes.hits[i].recipe.url %>`)">Unsave</button>
+                  onclick="UnsaveRecipeToAccount(this.id, `<%= recipes[i].recipe_name %>`)">Unsave</button>
               </div>
             </div>
             <% } %>
@@ -83,8 +84,7 @@
                       <a href="<%= recipes[i].image_link %>" target="_blank"><button
                           class="info-button">Info</button></a>
                       <button id="<%=i%>" class="save-button"
-                        onclick="UnsaveRecipeToAccount(this.id, `<%= recipes[i].recipe_name %>`, `<%= parseFloat(recipes[i].calories).toFixed(2) %>`, `<%= recipes[i].serving_size %>`,
-                  `<%= recipes[i].meal_time %>`, `<%= recipes[i].cuisine %>`, `<%= recipes[i].image_link %>`,`<%= recipes[i].recipe_link %>`)">Unsave</button>
+                        onclick="UnsaveRecipeToAccount(this.id, `<%= recipes[i].recipe_name %>`)">Unsave</button>
                     </div>
                   </div>
                   <% } %>

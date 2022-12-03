@@ -69,14 +69,14 @@ const saveRecipeToAccount = (id, name, cal, yield, time, cui, img, url) => {
 
 const UnsaveRecipeToAccount = (id, name) => {
   // CREATING A FORM IN JS TO STORE THE DATA TO SEND TO THE ROUTE
-  let saveForm = document.createElement('form');
+  let UnsaveForm = document.createElement('form');
   // THIS IS TO STORE THE FORM IN A DIV OR ELSE AN ERROR IS THROWN
   let formDiv = document.getElementById('form-box1');
   formDiv.innerHTML = '';
 
   // THE ATTRIBUTES TO HAVE THE FORM DO THE CORRECT METHODS AND ACTIONS
-  saveForm.setAttribute('method', 'get');
-  saveForm.setAttribute('action', '/UnsaveRecipe');
+  UnsaveForm.setAttribute('method', 'get');
+  UnsaveForm.setAttribute('action', '/UnsaveRecipe');
 
   let recipeName = document.createElement('input');
   recipeName.setAttribute('type', 'text');
@@ -85,14 +85,14 @@ const UnsaveRecipeToAccount = (id, name) => {
 
 
   let button = document.createElement('button');
-  saveForm.appendChild(button);
+  UnsaveForm.appendChild(button);
   // -----------------------------------------------------
 
   // PUTTING THE INPUT INTO THE FORM
-  saveForm.appendChild(recipeName);
+  UnsaveForm.appendChild(recipeName);
   // CONNECTING THE FORM TO AN INVISIBLE DIV, ELSE IT DOESNT WORK PROPERLY
-  formDiv.appendChild(saveForm);
+  formDiv.appendChild(UnsaveForm);
   formDiv.style.display = 'none';
   // SUBMIT THE FORM TO THE ROUTE WITH DATA INSIDE
-  saveForm.submit();
+  UnsaveForm.submit();
 };
