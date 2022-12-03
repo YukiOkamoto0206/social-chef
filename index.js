@@ -155,8 +155,11 @@ app.get('/homeSearch', isAuthenticated, async (req, res) => {
   });
 });
 
-app.get('/saved', isAuthenticated, (req, res) => {
-  res.render('saved');
+app.get('/saved', isAuthenticated, async (req, res) => {
+  let userID = req.session.userId;
+  let sql = `SELECT * FROM recipes WHERE user_id = ?`
+  let recipe = await executeSQL(sql, userID);
+  res.render('saved', {"recipes": recipe});
 });
 
 // [settings] (GET /userInfo)
@@ -276,6 +279,18 @@ app.post('/saveRecipe', isAuthenticated, async (req, res) => {
   // INSERT AND REDIRECT TO HOME
   let rows = await executeSQL(sql, params);
   res.redirect('/home');
+});
+
+// [Unsave recipes] from api (POST /saved)
+app.get('/UnsaveRecipe', isAuthenticated, async (req, res) => {
+  let name = req.query.recipeName;
+  let userID = req.session.userId;
+  let sql = `DELETE FROM recipes
+  WHERE user_id = ? AND recipe_name = `;
+
+  // delete AND redirect back TO saved
+  let rows = await executeSQL(sql, [userID, name]);
+  res.redirect('/saved');
 });
 
 // [new recipe] has input form (GET /recipe)

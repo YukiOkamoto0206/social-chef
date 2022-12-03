@@ -33,7 +33,69 @@
 
     </nav>
 
+    <main>
+      <% if(typeof(recipes) !="undefined" ) { %>
+        <% if (recipes.length> 10) { %>
+          <% for (i=0; i < 5; i++) { %>
+            <div class="slip">
+              <div class="slip-img">
+                <img src="<%= recipes[i].image_link %>" alt="" srcset="">
+              </div>
+              <div class="slip-body">
+                <p id="<%=i%>-name">Name: <%= recipes[i].recipe_name %>
+                </p>
+                <p>Calories: <%= parseFloat(recipes[i].calories).toFixed(2) %>
+                </p>
+                <p>Servings: <%= recipes[i].serving_size %>
+                </p>
+                <p>Time: <%= recipes[i].meal_time %>
+                </p>
+                <p>Cuisine: <%= recipes[i].cuisine %>
+                </p>
+              </div>
+              <div class="slip-util">
+                <a href="<%= recipes[i].image_link %>" target="_blank"><button class="info-button">Info</button></a>
+                <button id="<%=i%> %>" class="save-button"
+                  onclick="UnsaveRecipeToAccount(this.id, `<%= recipes[i].recipe_name %>`, `<%= parseFloat(recipes[i].calories).toFixed(2) %>`, `<%= recipes[i].serving_size %>`,
+                `<%= recipes[i].meal_time %>`, `<%= recipes[i].cuisineType[0] %>`, `<%= recipes.hits[i].recipe.image %>`,`<%= recipes.hits[i].recipe.url %>`)">Unsave</button>
+              </div>
+            </div>
+            <% } %>
+              <% } else { %>
+                <% for (i=0; i < recipes.length; i++) { %>
+                  <div class="slip">
+                    <div class="slip-img">
+                      <img src="<%= recipes[i].image_link %>" alt="" srcset="">
+                    </div>
+                    <div class="slip-body">
+                      <p>Name : <%= recipes[i].recipe_name %>
+                      </p>
+                      <p>Calories : <%= parseFloat(recipes[i].calories).toFixed(2) %>
+                      </p>
+                      <p>Servings : <%= recipes[i].serving_size %>
+                      </p>
+                      <p>Time : <%= recipes[i].meal_time %>
+                      </p>
+                      <p>Cuisine : <%= recipes[i].cuisine %>
+                      </p>
+                    </div>
+                    <div class="slip-util">
+                      <a href="<%= recipes[i].image_link %>" target="_blank"><button
+                          class="info-button">Info</button></a>
+                      <button id="<%=i%>" class="save-button"
+                        onclick="UnsaveRecipeToAccount(this.id, `<%= recipes[i].recipe_name %>`, `<%= parseFloat(recipes[i].calories).toFixed(2) %>`, `<%= recipes[i].serving_size %>`,
+                  `<%= recipes[i].meal_time %>`, `<%= recipes[i].cuisine %>`, `<%= recipes[i].image_link %>`,`<%= recipes[i].recipe_link %>`)">Unsave</button>
+                    </div>
+                  </div>
+                  <% } %>
+                    <% } %>
+                      <% } %>
 
+                        <div id="form-box1">
+
+                        </div>
+
+    </main>
   </body>
 
   </html>
