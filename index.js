@@ -213,7 +213,7 @@ app.post('/password', isAuthenticated, async (req, res) => {
 app.get('/newRecipe', isAuthenticated, async (req, res) => {
   let sql = `Select * from cuisines`;
   let cuisines = await executeSQL(sql);
-  res.render('newRecipe', {cuisines: cuisines});
+  res.render('newRecipe', { cuisines: cuisines });
 });
 
 // [add recipes] in your own (use form from scrach without api) (POST /recipe)
@@ -225,7 +225,7 @@ app.post('/addRecipe', isAuthenticated, async (req, res) => {
   let mealTime = req.body.time;
   let url = req.body.url;
   let img = req.body.img;
-  let userId = req.session.userId
+  let userId = req.session.userId;
   let sql = `INSERT INTO recipes
              (user_id, 
               recipe_name, 
@@ -237,7 +237,16 @@ app.post('/addRecipe', isAuthenticated, async (req, res) => {
               image_link)
              VALUES
              (?,?,?,?,?,?,?,?)`;
-  let params = [userId, name, cuisine, calories, servingSize, mealTime, url, img];
+  let params = [
+    userId,
+    name,
+    cuisine,
+    calories,
+    servingSize,
+    mealTime,
+    url,
+    img,
+  ];
   let rows = await executeSQL(sql, params);
   res.redirect('newRecipe');
 });
@@ -327,6 +336,31 @@ app.get('/api', async (req, res) => {
     mealType,
   ];
   res.render('apiTest', { recipeInfo: recipeInfo });
+});
+
+app.get('/poke', async (req, res) => {
+  res.render('poke');
+});
+
+app.get('/poke/search', async (req, res) => {
+  let pokeId = req.query.id;
+
+  if (pokeId === 0) {
+    pokeId++;
+  }
+
+  if (pokeId == '') {
+    pokeId = 201;
+  }
+
+  if (pokeId > 649) {
+    pokeId = 649;
+  }
+
+  const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokeId}/`);
+  const data = await response.json();
+
+  res.render('poke', { pokeInfo: req.query, data: data });
 });
 
 async function executeSQL(sql, params) {
