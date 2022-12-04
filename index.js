@@ -146,7 +146,7 @@ app.get('/homeSearch', isAuthenticated, async (req, res) => {
   sql = `select firstName from users where userID = ?`;
   let fName = await executeSQL(sql, userID);
 
-  // passing the data onto the home page from the db and api call
+  //passing the data onto the home page from the db and api call
   res.render('home', {
     cuisines: cuisines,
     recipes: recipes,
