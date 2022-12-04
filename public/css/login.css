@@ -3,7 +3,7 @@ main {
   flex-direction: column;
   justify-content: center;
   background-color: #7A846E;
-  margin: 10% 15% 5% 15%;
+  margin: 15% 15% 0 15%;
   color: white;
   text-align: center;
   border-radius: 6px;
@@ -27,8 +27,8 @@ button {
   color: white;
   background-color: #7A846E;
   border: solid 1px white;
-  font-size: 16px;
-  padding: 0.7rem 1.2rem 0.7rem 1.2rem;
+  font-size: 14px;
+  padding: 0.5rem 1.2rem 0.5rem 1.2rem;
   border-radius: 40px;
   transition: 0.4s;
 }

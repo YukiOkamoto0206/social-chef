@@ -155,15 +155,6 @@ app.get('/homeSearch', isAuthenticated, async (req, res) => {
   });
 });
 
-app.get('/saved', isAuthenticated, async (req, res) => {
-  let userID = req.session.userId;
-  let sql = `SELECT * FROM recipes WHERE user_id = ?`
-  let recipe = await executeSQL(sql, userID);
-  sql = `select firstName from users where userID = ?`;
-  let fName = await executeSQL(sql, userID);
-  res.render('saved', {"recipes": recipe,  firstN: fName});
-});
-
 // [settings] (GET /userInfo)
 app.get('/settings', isAuthenticated, async (req, res) => {
   let sql = ` SELECT * 
@@ -218,7 +209,7 @@ app.post('/password', isAuthenticated, async (req, res) => {
 app.get('/newRecipe', isAuthenticated, async (req, res) => {
   let sql = `Select * from cuisines`;
   let cuisines = await executeSQL(sql);
-  res.render('newRecipe', {cuisines: cuisines});
+  res.render('newRecipe', { cuisines: cuisines });
 });
 
 // [add recipes] in your own (use form from scrach without api) (POST /recipe)
@@ -230,7 +221,7 @@ app.post('/addRecipe', isAuthenticated, async (req, res) => {
   let mealTime = req.body.time;
   let url = req.body.url;
   let img = req.body.img;
-  let userId = req.session.userId
+  let userId = req.session.userId;
   let sql = `INSERT INTO recipes
              (user_id, 
               recipe_name, 
@@ -242,7 +233,16 @@ app.post('/addRecipe', isAuthenticated, async (req, res) => {
               image_link)
              VALUES
              (?,?,?,?,?,?,?,?)`;
-  let params = [userId, name, cuisine, calories, servingSize, mealTime, url, img];
+  let params = [
+    userId,
+    name,
+    cuisine,
+    calories,
+    servingSize,
+    mealTime,
+    url,
+    img,
+  ];
   let rows = await executeSQL(sql, params);
   res.redirect('newRecipe');
 });
@@ -283,16 +283,26 @@ app.post('/saveRecipe', isAuthenticated, async (req, res) => {
   res.redirect('/home');
 });
 
+app.get('/saved', isAuthenticated, async (req, res) => {
+  let userID = req.session.userId;
+
+  let sql = `SELECT * FROM recipes WHERE user_id = ?`;
+  let recipe = await executeSQL(sql, userID);
+
+  res.render('saved', { recipes: recipe, user: userID });
+});
+
 // [Unsave recipes] from api (POST /saved)
 app.get('/UnsaveRecipe', isAuthenticated, async (req, res) => {
-  let name = req.query.recipeName;
   let userID = req.session.userId;
-  let sql = `DELETE FROM recipes
-  WHERE user_id = ? AND recipe_name = `;
 
-  // delete AND redirect back TO saved
-  let rows = await executeSQL(sql, [userID, name]);
-  res.render('/saved', {});
+  let params = [req.query.recipeId, userID];
+
+  let unSaveRecipe = `DELETE FROM recipes
+  WHERE recipe_id = ? AND user_id = ?`;
+
+  await executeSQL(unSaveRecipe, params);
+  res.redirect('/saved');
 });
 
 // [new recipe] has input form (GET /recipe)
@@ -300,50 +310,10 @@ app.get('/addRecipe', isAuthenticated, (req, res) => {
   res.render('newRecipe');
 });
 
-// [delete recipes] (GET /recipe)
-app.get('/deleteRecipe', isAuthenticated, async (req, res) => {
-  let recipeId = req.query.recipeId;
-  let userId = req.query.userId;
-  let sql = `DELETE FROM recipes
-             WHERE recipeId = ? AND userId = ?`;
-  let rows = await executeSQL(sql, [recipeId, userId]);
-  res.redirect('settings');
-});
-
 // [logout] (GET /login)
 app.get('/logout', (req, res) => {
   req.session.destroy();
   res.redirect('/');
-});
-
-app.get('/test', (req, res) => {
-  res.render('test');
-});
-
-app.get('/api', async (req, res) => {
-  console.log(process.env.API_KEY);
-  let recipeNumber = 0;
-  let keyword = 'chicken';
-  let url = `https://api.edamam.com/api/recipes/v2?type=public&q=${keyword}&app_id=${process.env.APP_ID}&app_key=${process.env.APP_KEY}`;
-  let response = await fetch(url);
-  let data = await response.json();
-  let numberOfRecipesFound = data.to;
-  let recipeLink = data.hits[recipeNumber].recipe.url;
-  let cuisineType = data.hits[recipeNumber].recipe.cuisineType;
-  let image = data.hits[recipeNumber].recipe.image;
-  let ingredientsArray = data.hits[recipeNumber].recipe.ingredientLines;
-  let recipieTitle = data.hits[recipeNumber].recipe.label;
-  let mealType = data.hits[recipeNumber].recipe.mealType[0];
-  let recipeInfo = [
-    numberOfRecipesFound,
-    recipeLink,
-    cuisineType,
-    image,
-    ingredientsArray,
-    recipieTitle,
-    mealType,
-  ];
-  res.render('apiTest', { recipeInfo: recipeInfo });
 });
 
 async function executeSQL(sql, params) {
