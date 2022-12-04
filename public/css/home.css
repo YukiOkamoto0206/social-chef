@@ -10,7 +10,6 @@
   font-size: 28px;
 }
 
-
 .input-container {
   margin: 5rem 5% 5rem 5%;
   
@@ -19,9 +18,6 @@
 .input-container h1 {
   margin-bottom: 4rem;
 }
-
-  
-
 
 #meal-time {
   accent-color: #daa84c;
@@ -49,6 +45,7 @@ label {
   text-align: left;
   margin-bottom: 0.4rem;
   font-size: 0.8rem;
+  color: #daa84c;
 }
 
 #first {

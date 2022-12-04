@@ -5,52 +5,40 @@ body {
 }
 
 label {
+  font-size: 12px;
   margin-bottom: 4px;
 }
 
 .left-side {
-  position: absolute;
+  position: fixed;
   width: 37%;
-  height: 100%;
-  left: 0px;
-  top: 0px;
+  left: 0;
+  top: 0;
+  bottom: 0;
   background: url(/img/pasta.webp);
   background-size:     cover;                      /* <------ */
   background-repeat:   no-repeat;
   text-align: center;
   color: white;
   font-family: 'Montserrat', sans-serif;
-  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-  
-}
-
-.left-side {
-  position: absolute;
-  width: 37%;
-  height: 100%;
-  left: 0px;
-  top: 0px;
-  background: url(/img/pasta.webp);
-  background-size:     cover;                      /* <------ */
-  background-repeat:   no-repeat;
-  text-align: center;
-  color: white;
-  font-family: 'Montserrat', sans-serif;
-  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-  
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px; 
 }
 
 .left-side h1{
-  font-size: 64px;
+  font-size: 42px;
 }
 
 .left-side h2{
-  margin-top: 80px;
-  font-size: 32px;
+  margin-top: 15%;
+  font-size: 26px;
 }
 
 .f-container p {
   padding-bottom: 5rem;
+}
+
+.f-container h1 {
+  font-size: 22px;
 }
 
 .input-fields {
@@ -62,4 +50,8 @@ label {
 a{
   color:rgb(235, 213, 160);
   text-decoration-color: rgb(235, 213, 160);
+}
+
+.top-and-bottom {
+  font-size: 12px;
 }

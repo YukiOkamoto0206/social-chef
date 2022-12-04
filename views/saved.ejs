@@ -11,13 +11,18 @@
 
   <!-- CSS UTILIZED BY THIS PAGE -->
   <link rel="stylesheet" href="/css/general.css" type="text/css" />
+  <link rel="stylesheet" href="/css/savedRecipes.css" type="text/css" />
 
+  <script src="/js/unsaveRecipe.js"></script>
+
+</head>
   <body>
 
     <div class="trim"></div>
     <nav>
       <section class="nav-header">
-        <h1>Welcome <br> User!</h1>
+        <h1>Welcome <br>
+        </h1>
       </section>
 
       <section class="nav-body">
@@ -34,7 +39,49 @@
 
     </nav>
 
+    <main>
+      <section class="input-container">
+        <h1>Saved Recipes</h1>
+      </section>
 
+      <section class="recipes-container">
+
+        <% if(recipes.length < 1 ) { %>
+
+          <h2>Oh! It seems you have no recipes saved! 0_0 </h2>
+
+        <% } %>
+
+
+        <% if(typeof(recipes) !="undefined" ) { %>
+          <% for (i = 0; i < recipes.length; i++)  { %>
+            <div class="slip">
+              <div class="slip-img">
+                <img src="<%= recipes[i].image_link %>" alt="" srcset="">
+              </div>
+              <div class="slip-body">
+                <p>Name : <%= recipes[i].recipe_name %>
+                </p>
+                <p>Calories : <%= parseFloat(recipes[i].calories).toFixed(2) %>
+                </p>
+                <p>Servings : <%= recipes[i].serving_size %>
+                </p>
+                <p>Time : <%= recipes[i].meal_time %>
+                </p>
+                <p>Cuisine : <%= recipes[i].cuisine %>
+                </p>
+              </div>
+              <div class="slip-util">
+               <a href="<%= recipes[i].recipe_link %>" target="_blank"><button class="info-button">Info</button></a> 
+               <a href="/UnsaveRecipe?recipeId=<%=recipes[i].recipe_id%>"> <button class="delete-button">Delete</button></a> 
+              </div>
+            </div>
+          <% } %>
+        <% } %>
+      </section>
+
+                      
+    </main>
   </body>
 
   </html>

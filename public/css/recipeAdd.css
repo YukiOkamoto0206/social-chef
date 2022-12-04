@@ -9,14 +9,13 @@ main h1 {
   color: #daa84c;
   font-family: 'Nunito', sans-serif;
   text-align: center;
-  font-size: 30px;
+  font-size: 26px;
   margin-top: 6rem;
 }
 
 form {
- 
-  margin: 3.5rem 15% 5rem 15%;
-  padding: 3rem;
+  margin: 3rem 15% 5rem 15%;
+  padding: 2rem;
   position: relative;
   background-color: white;
   border-radius: 20px;
@@ -66,6 +65,8 @@ form button:hover {
 }
 
 .input-row label{
+  font-size: 15px;
+  color: #daa84c;
   margin-bottom: 0.4rem;
 }
 
@@ -105,4 +106,8 @@ form button:hover {
 
 .radio-button {
   accent-color:#535546;
+}
+
+input::placeholder {
+  font-size: 12px;
 }

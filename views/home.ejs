@@ -6,7 +6,7 @@
   <!-- FONT USED FOR THE PAGE (RETRIVED FROM GOOGLE FONTS) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Heebo&family=Nunito:wght@200&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Heebo&family=Nunito:wght@200&family=Red+Hat+Text&display=swap" rel="stylesheet">
   <script src="https://kit.fontawesome.com/20718ccc33.js" crossorigin="anonymous" defer></script>
   <!-- CSS UTILIZED BY THIS PAGE -->
   <link rel="stylesheet" href="/css/general.css" type="text/css" />
@@ -100,27 +100,6 @@
       </section>
 
       <% if(typeof(recipes) !="undefined" ) { %>
-        <%  if (recipes.hits.length > 10)  { %>
-          <% for (i = 0; i < 5; i++)  { %>
-            <div class="slip">
-              <div class="slip-img">
-                <img src="<%= recipes.hits[i].recipe.image %>" alt="" srcset="">
-              </div>
-              <div class="slip-body">
-                <p id="<%=i%>-name">Name: <%= recipes.hits[i].recipe.label %></p>
-                <p>Calories: <%= parseFloat(recipes.hits[i].recipe.calories).toFixed(2) %> </p>
-                <p>Servings: <%= recipes.hits[i].recipe.yield %> </p>
-                <p>Time: <%= recipes.hits[i].recipe.mealType[0] %> </p>
-                <p>Cuisine: <%= recipes.hits[i].recipe.cuisineType[0] %></p>
-              </div>
-              <div class="slip-util">
-               <a href="<%= recipes.hits[i].recipe.url %>" target="_blank"><button class="info-button">Info</button></a> 
-                <button id="<%=i%> %>" class="save-button" onclick="saveRecipeToAccount(this.id, `<%= recipes.hits[i].recipe.label %>`, `<%= parseFloat(recipes.hits[i].recipe.calories).toFixed(2) %>`, `<%= recipes.hits[i].recipe.yield %>`,
-                `<%= recipes.hits[i].recipe.mealType[0] %>`, `<%= recipes.hits[i].recipe.cuisineType[0] %>`, `<%= recipes.hits[i].recipe.image %>`,`<%= recipes.hits[i].recipe.url %>`)">Save</button>
-              </div>
-            </div>
-          <% } %>
-        <% } else { %>
           <% for (i = 0; i < recipes.hits.length; i++)  { %>
             <div class="slip">
               <div class="slip-img">
@@ -144,7 +123,6 @@
                   `<%= recipes.hits[i].recipe.mealType[0] %>`, `<%= recipes.hits[i].recipe.cuisineType[0] %>`, `<%= recipes.hits[i].recipe.image %>`,`<%= recipes.hits[i].recipe.url %>`)">Save</button>
               </div>
             </div>
-          <% } %>
         <% } %>
       <% } %>
 
