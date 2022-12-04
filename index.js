@@ -347,12 +347,16 @@ app.get('/poke/search', async (req, res) => {
     pokeId = 649;
   }
 
+  
+
+  userID = req.session.userId;
+  sql = `select firstName from users where userID = ?`;
+  let fName = await executeSQL(sql, [userID]);
+
   const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokeId}/`);
   const data = await response.json();
 
-  let userID = req.session.userId;
-
-  res.render('poke', { pokeInfo: req.query, data: data });
+  res.render('poke', {firstN: fName, pokeInfo: req.query, data: data });
 });
 
 
