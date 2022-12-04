@@ -65,6 +65,8 @@ form button:hover {
 }
 
 .input-row label{
+  font-size: 15px;
+  color: #daa84c;
   margin-bottom: 0.4rem;
 }
 
@@ -104,4 +106,8 @@ form button:hover {
 
 .radio-button {
   accent-color:#535546;
+}
+
+input::placeholder {
+  font-size: 12px;
 }

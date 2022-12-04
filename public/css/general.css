@@ -1,5 +1,5 @@
 body {
-  margin: 45px 0 0 230px;
+  margin: 45px 0 0 215px;
   background-color: #FFFBF8;
   font-family: 'Heebo', sans-serif;
   z-index: -1;
@@ -33,7 +33,7 @@ nav {
   bottom: 0;
   z-index: 1;
   background-color: #fbe8d6;
-  width: 230px;
+  width: 215px;
   min-height: 100%;
   height: auto;
   height: 100%;
@@ -67,7 +67,7 @@ nav {
 }
 
 .body-row {
-  font-size: 18px;
+  font-size: 16px;
   padding: 1rem;
   transition: 0.4s;
 }
@@ -133,12 +133,12 @@ nav {
 
   margin-top: 2rem;
   margin-bottom: 2rem;
-  column-gap: 0.2rem;
+  column-gap: 0.1rem;
 }
 
 .slip-body p {
   margin: 0;
-  font-size: 16px;
+  font-size: 14px;
   font-family: 'Nunito', sans-serif;
 
 }
