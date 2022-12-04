@@ -5,6 +5,22 @@ body {
   z-index: -1;
 }
 
+.rec-of-day h1,
+.input-container h1 {
+  color: #daa84c;
+  font-family: 'Nunito', sans-serif;
+  text-align: center;
+  font-size: 28px;
+}
+
+.input-container {
+  margin: 5rem 5% 5rem 5%;
+
+}
+
+.input-container h1 {
+  margin-bottom: 4rem;
+}
 
 
 nav {
@@ -114,7 +130,7 @@ nav {
   display: grid;
   grid-template-columns: 180px 180px 180px;
   grid-template-rows: 70px 70px 70px;
-  
+
   margin-top: 2rem;
   margin-bottom: 2rem;
   column-gap: 0.2rem;
@@ -162,7 +178,7 @@ nav {
 .info-button {
   background-color: #CBAC70;
   transition: 0.4s;
-  
+
 }
 
 .info-button:hover {
