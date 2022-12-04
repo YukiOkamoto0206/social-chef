@@ -162,7 +162,10 @@ app.get('/settings', isAuthenticated, async (req, res) => {
               WHERE userId = ?`;
   let params = req.session.userId;
   let data = await executeSQL(sql, [params]);
-  res.render('settings', { data: data[0] });
+  let userID = req.session.userId;
+  sql = `select firstName from users where userID = ?`;
+  let fName = await executeSQL(sql, userID);
+  res.render('settings', { data: data[0], firstN: fName});
 });
 
 // [add/update settings] (POST /userInfo)
@@ -209,7 +212,10 @@ app.post('/password', isAuthenticated, async (req, res) => {
 app.get('/newRecipe', isAuthenticated, async (req, res) => {
   let sql = `Select * from cuisines`;
   let cuisines = await executeSQL(sql);
-  res.render('newRecipe', { cuisines: cuisines });
+  let userID = req.session.userId;
+  sql = `select firstName from users where userID = ?`;
+  let fName = await executeSQL(sql, userID);
+  res.render('newRecipe', { cuisines: cuisines, firstN: fName});
 });
 
 // [add recipes] in your own (use form from scrach without api) (POST /recipe)
@@ -289,7 +295,10 @@ app.get('/saved', isAuthenticated, async (req, res) => {
   let sql = `SELECT * FROM recipes WHERE user_id = ?`;
   let recipe = await executeSQL(sql, userID);
 
-  res.render('saved', { recipes: recipe, user: userID });
+  sql = `select firstName from users where userID = ?`;
+  let fName = await executeSQL(sql, userID);
+
+  res.render('saved', { recipes: recipe, user: userID, firstN: fName });
 });
 
 // [Unsave recipes] from api (POST /saved)
@@ -317,7 +326,10 @@ app.get('/logout', (req, res) => {
 });
 
 app.get('/poke', async (req, res) => {
-  res.render('poke');
+  let userID = req.session.userId;
+  sql = `select firstName from users where userID = ?`;
+  let fName = await executeSQL(sql, userID);
+  res.render('poke', {firstN: fName});
 });
 
 app.get('/poke/search', async (req, res) => {
@@ -337,6 +349,8 @@ app.get('/poke/search', async (req, res) => {
 
   const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokeId}/`);
   const data = await response.json();
+
+  let userID = req.session.userId;
 
   res.render('poke', { pokeInfo: req.query, data: data });
 });

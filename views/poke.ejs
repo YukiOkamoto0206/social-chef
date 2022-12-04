@@ -10,127 +10,150 @@
   <script src="https://kit.fontawesome.com/20718ccc33.js" crossorigin="anonymous" defer></script>
   <!-- CSS UTILIZED BY THIS PAGE -->
   <!-- CSS only -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
   <link rel="stylesheet" href="/css/general.css" type="text/css" />
   <link rel="stylesheet" href="/css/poke.css" type="text/css" />
 
-</head>
+  </head>
 
-<body>
+  <body>
 
-  <div class="trim" ></div>
+    <div class="trim"></div>
 
-  <nav>
-    <section class="nav-header" >
-      <h1>Welcome <br> </h1>
-    </section>
+    <nav>
+      <section class="nav-header">
+        <h1>Welcome <br>
+          <%= firstN[0].firstName %>!
+        </h1>
+      </section>
 
-    <section class="nav-body">
-      <div class="body-row "> <i class="fa-sharp fa-solid fa-house"></i><a href="/home">Home</a> </div>
-      <div class="body-row"><i class="fa-solid fa-bookmark"></i><a href="/saved">Saved</a></div>
-      <div class="body-row"><i class="fa-solid fa-folder-plus"></i><a href="/newRecipe">Add Recipe</a></div>
-      <div class="body-row"><i class="fa-solid fa-gear"></i><a href="/settings">Info</a></div>
-      <div class="body-row active"><i class="fa-solid "></i><a href="">Poke</a></div>
-    </section>
+      <section class="nav-body">
+        <div class="body-row "> <i class="fa-sharp fa-solid fa-house"></i><a href="/home">Home</a> </div>
+        <div class="body-row"><i class="fa-solid fa-bookmark"></i><a href="/saved">Saved</a></div>
+        <div class="body-row"><i class="fa-solid fa-folder-plus"></i><a href="/newRecipe">Add Recipe</a></div>
+        <div class="body-row"><i class="fa-solid fa-gear"></i><a href="/settings">Info</a></div>
+        <div class="body-row active"><i class="fa-solid "></i><a href="">Poke</a></div>
+      </section>
 
-    <section class="nav-footer">
-      <div class="body-row"><i class="fa-solid fa-right-from-bracket"></i><a href="/logout">Logout</a></div>
-    </section>
+      <section class="nav-footer">
+        <div class="body-row"><i class="fa-solid fa-right-from-bracket"></i><a href="/logout">Logout</a></div>
+      </section>
 
-  </nav>
+    </nav>
 
-  <main>
-    <section class="input-container">
-      <h1>Pokemon</h1>
-      <form action="/poke/search" method="get">
-        <div class="input-row ">
-          <label for="">ID</label>
-          <input class="key-text" type="number" name="id" placeholder="ex: 501" required>
-        </div>
-        <div class="input-row ">
-          <label class="" for="autoSizingSelect">Preference</label>
-          <select class="cuisine-input" id="" name="orientation">
-            <option selected>Choose...</option>
-            <option value="front">Front</option>
-            <option value="back">Back</option>
-            <option value="animated">Animated</option>
-          </select>
-        </div>
-        <div class="input-row ">
-          <label class="" for="autoSizingCheck">Shiny?</label>
-          <input class="poke-shiny" type="checkbox" id="autoSizingCheck" name="shiny">
-        </div>
-        <button class="delete-button">Search</button>
-      </form>
-    </section>
-
-    <section>
-    
-      <%  if ( typeof(pokeInfo) != "undefined" ) { %>
-
-         
-        <div class="p-rnd-box">
-          <div class="card" style="max-width: 30rem; ">
-            <div class="card-header">
-              <p> Dex #<%= data.id %></p>
-            </div>
-            <% if (pokeInfo.shiny == 'on') { %>
-
-              <% if (pokeInfo.orientation == 'animated') { %>
-                <img src="<%= data.sprites.versions['generation-v']['black-white'].animated.front_shiny %>" class="card-img-top" style="object-fit: contain; max-width: 100px; max-height: 100px; margin: 20px auto;" alt="...">
-              <% } else if (pokeInfo.orientation == 'front') { %>
-                <img src="<%= data.sprites.versions['generation-v']['black-white'].front_shiny %>" class="card-img-top" style="object-fit: contain; max-width: 100px; max-height: 100px; margin: 20px auto;" alt="...">
-              <% } else { %>
-                <!-- Back orientation shiny-->
-                <img src="<%= data.sprites.versions['generation-v']['black-white'].back_shiny %>" class="card-img-top" style="object-fit: contain; max-width: 100px; max-height: 100px; margin: 20px auto;" alt="...">
-              <% }  %>
-
-            <% } else { %>
-
-              <% if (pokeInfo.orientation == 'animated') { %>
-                <img src="<%= data.sprites.versions['generation-v']['black-white'].animated.front_default %>" class="card-img-top" style="object-fit: contain; max-width: 100px; max-height: 100px; margin: 20px auto;" alt="...">
-              <% } else if (pokeInfo.orientation == 'front') { %>
-                <img src="<%= data.sprites.versions['generation-v']['black-white'].front_default %>" class="card-img-top" style="object-fit: contain; max-width: 100px; max-height: 100px; margin: 20px auto;" alt="...">
-              <% } else { %>
-                  <!-- Back orientation shiny-->
-                  <img src="<%= data.sprites.versions['generation-v']['black-white'].back_default %>" class="card-img-top" style="object-fit: contain; max-width: 100px; max-height: 100px; margin: 20px auto;" alt="...">
-              <% }  %>
-            
-            <% }  %>
-
-            <div class="card-body">
-              <p id="p-name">Name: </p>
-              <p id="p-ability">Ability: </p>
-              <p id="p-weight">Weight: <%= data.weight * 0.22  %> Pounds</p>   
-          <p id="p-height">Height: <%= parseFloat(data.height * 10 / 2.35 / 12).toFixed(2) %> Feet</p>
-          <p id="p-type"> Type:
-            <% for( i = 0; i < data.types.length; i++) { %>
-             
-              <%= data.types[i].type.name.charAt(0).toUpperCase() +  data.types[i].type.name.slice(1) + " " %>
-           
-           <% } %>
-       
-         </p>
-        </div>
+    <main>
+      <section class="input-container">
+        <h1>Pokemon</h1>
+        <form action="/poke/search" method="get">
+          <div class="input-row ">
+            <label for="">ID</label>
+            <input class="key-text" type="number" name="id" placeholder="ex: 501" required>
           </div>
-        </div>
-      
-  <% } %>
+          <div class="input-row ">
+            <label class="" for="autoSizingSelect">Preference</label>
+            <select class="cuisine-input" id="" name="orientation">
+              <option selected>Choose...</option>
+              <option value="front">Front</option>
+              <option value="back">Back</option>
+              <option value="animated">Animated</option>
+            </select>
+          </div>
+          <div class="input-row ">
+            <label class="" for="autoSizingCheck">Shiny?</label>
+            <input class="poke-shiny" type="checkbox" id="autoSizingCheck" name="shiny">
+          </div>
+          <button class="delete-button">Search</button>
+        </form>
+      </section>
 
-    </section>
-  </main>
-  
-  <%  if ( typeof(data) != "undefined" ) { %>
-  <script>
-		const capitlizeFirst = (str, id) => {
-		str = str.charAt(0).toUpperCase() + str.slice(1);
-		document.getElementById(id).textContent += str;
-		}
+      <section>
 
-		capitlizeFirst('<%= data.name %>', 'p-name');
-		capitlizeFirst('<%= data.abilities[0].ability.name%>', 'p-ability')
-		capitlizeFirst('<%= data.game_indices[0].version.name %>', 'p-game')
-	</script>
- <%   }  %>
-</body>
-</html>
+        <% if ( typeof(pokeInfo) !="undefined" ) { %>
+
+
+          <div class="p-rnd-box">
+            <div class="card" style="max-width: 30rem; ">
+              <div class="card-header">
+                <p> Dex #<%= data.id %>
+                </p>
+              </div>
+              <% if (pokeInfo.shiny=='on' ) { %>
+
+                <% if (pokeInfo.orientation=='animated' ) { %>
+                  <img src="<%= data.sprites.versions['generation-v']['black-white'].animated.front_shiny %>"
+                    class="card-img-top"
+                    style="object-fit: contain; max-width: 100px; max-height: 100px; margin: 20px auto;" alt="...">
+                  <% } else if (pokeInfo.orientation=='front' ) { %>
+                    <img src="<%= data.sprites.versions['generation-v']['black-white'].front_shiny %>"
+                      class="card-img-top"
+                      style="object-fit: contain; max-width: 100px; max-height: 100px; margin: 20px auto;" alt="...">
+                    <% } else { %>
+                      <!-- Back orientation shiny-->
+                      <img src="<%= data.sprites.versions['generation-v']['black-white'].back_shiny %>"
+                        class="card-img-top"
+                        style="object-fit: contain; max-width: 100px; max-height: 100px; margin: 20px auto;" alt="...">
+                      <% } %>
+
+                        <% } else { %>
+
+                          <% if (pokeInfo.orientation=='animated' ) { %>
+                            <img
+                              src="<%= data.sprites.versions['generation-v']['black-white'].animated.front_default %>"
+                              class="card-img-top"
+                              style="object-fit: contain; max-width: 100px; max-height: 100px; margin: 20px auto;"
+                              alt="...">
+                            <% } else if (pokeInfo.orientation=='front' ) { %>
+                              <img src="<%= data.sprites.versions['generation-v']['black-white'].front_default %>"
+                                class="card-img-top"
+                                style="object-fit: contain; max-width: 100px; max-height: 100px; margin: 20px auto;"
+                                alt="...">
+                              <% } else { %>
+                                <!-- Back orientation shiny-->
+                                <img src="<%= data.sprites.versions['generation-v']['black-white'].back_default %>"
+                                  class="card-img-top"
+                                  style="object-fit: contain; max-width: 100px; max-height: 100px; margin: 20px auto;"
+                                  alt="...">
+                                <% } %>
+
+                                  <% } %>
+
+                                    <div class="card-body">
+                                      <p id="p-name">Name: </p>
+                                      <p id="p-ability">Ability: </p>
+                                      <p id="p-weight">Weight: <%= data.weight * 0.22 %> Pounds</p>
+                                      <p id="p-height">Height: <%= parseFloat(data.height * 10 / 2.35 / 12).toFixed(2)
+                                          %> Feet</p>
+                                      <p id="p-type"> Type:
+                                        <% for( i=0; i < data.types.length; i++) { %>
+
+                                          <%= data.types[i].type.name.charAt(0).toUpperCase() +
+                                            data.types[i].type.name.slice(1) + " " %>
+
+                                            <% } %>
+
+                                      </p>
+                                    </div>
+            </div>
+          </div>
+
+          <% } %>
+
+      </section>
+    </main>
+
+    <% if ( typeof(data) !="undefined" ) { %>
+      <script>
+        const capitlizeFirst = (str, id) => {
+          str = str.charAt(0).toUpperCase() + str.slice(1);
+          document.getElementById(id).textContent += str;
+        }
+
+        capitlizeFirst('<%= data.name %>', 'p-name');
+        capitlizeFirst('<%= data.abilities[0].ability.name%>', 'p-ability')
+        capitlizeFirst('<%= data.game_indices[0].version.name %>', 'p-game')
+      </script>
+      <% } %>
+  </body>
+
+  </html>
