@@ -60,6 +60,18 @@ const saveRecipeToAccount = (id, name, cal, yield, time, cui, img, url) => {
   saveForm.appendChild(recipeLink);
   saveForm.appendChild(recipeImg);
 
+  Swal.fire({
+    showClass: {
+      popup: 'animate__animated animate__fadeInDown'
+    },
+    title: `Saved!`,
+    text: `${name} has been saved! To view it go to the Saved window`,
+    color: '#FFFFFF',
+    background: `#eece8f`,
+    padding: '3rem',
+    confirmButtonColor: '#535546',
+});
+
   // CONNECTING THE FORM TO AN INVISIBLE DIV, ELSE IT DOESNT WORK PROPERLY
   formDiv.appendChild(saveForm);
   formDiv.style.display = 'none';
