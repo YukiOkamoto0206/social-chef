@@ -316,6 +316,32 @@ app.get('/logout', (req, res) => {
   res.redirect('/');
 });
 
+app.get('/poke', async (req, res) => {
+  res.render('poke');
+});
+
+app.get('/poke/search', async (req, res) => {
+  let pokeId = req.query.id;
+
+  if (pokeId === 0) {
+    pokeId++;
+  }
+
+  if (pokeId == '') {
+    pokeId = 201;
+  }
+
+  if (pokeId > 649) {
+    pokeId = 649;
+  }
+
+  const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokeId}/`);
+  const data = await response.json();
+
+  res.render('poke', { pokeInfo: req.query, data: data });
+});
+
+
 async function executeSQL(sql, params) {
   return new Promise(function (resolve, reject) {
     pool.query(sql, params, function (err, rows, fields) {
