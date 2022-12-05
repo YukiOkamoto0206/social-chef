@@ -115,7 +115,13 @@ label {
 
 
 
-.nav-header {
+.nav-header  {
   font-family: 'Nunito', sans-serif;
   font-size: 18px;
+}
+
+.nav-header h1 {
+  font-family: 'Nunito', sans-serif;
+  font-size: 20px;
+  padding: 1.3rem;
 }
